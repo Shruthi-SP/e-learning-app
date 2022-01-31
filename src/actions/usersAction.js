@@ -105,6 +105,45 @@ export const asyncGetUser = (getData) => {
         })
     }
 }
+export const asyncUpdateUser = (formData) => {
+    return (dispatch) => {
+        axios.put('/admin', formData, {
+            headers: {
+                Authorization: `${localStorage.getItem('token')}`
+            }
+        })
+        .then((response) => {
+            const result = response.data
+            if (result.hasOwnProperty('errors')) {
+                console.log('inside then err')
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: result.errors,
+                    footer: ''
+                })
+            }
+            else {
+                dispatch(setUser(result))
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: 'Update successful',
+                    footer: ''
+                })
+            }
+        })
+        .catch((err) => {
+            console.log('inside catch')
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: err.message,
+                footer: ''
+            })
+        })
+    }
+}
 
 export const setUser = (obj) => {
     return { type: 'SET_USER', payload: obj }
