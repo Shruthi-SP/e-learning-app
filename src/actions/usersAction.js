@@ -89,7 +89,6 @@ export const asyncGetUser = (getData) => {
                 })
             }
             else {
-                console.log('from action to reducer')
                 dispatch(setUser(result))
                 if(getData){
                     getData(result)

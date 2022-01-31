@@ -6,10 +6,9 @@ import Register from "./admin/Register"
 import Login from "./admin/Login"
 
 const Navbar = (props) => {
-    console.log('navbar props=', props)
     const [userLoggedIn, setUserLoggedIn] = useState(false)
     const [admin, setAdmin] = useState(false)
-    console.log('admin', admin)
+
     const dispatch = useDispatch()
 
     const handleLoggedIn = () => {
@@ -19,16 +18,13 @@ const Navbar = (props) => {
         setAdmin(true)
     }
     const getData = (obj) => {
-        console.log('inside getdata')
         if (obj.role === 'admin') {
             handleAdmin()
-            console.log('inside if admin')
         }
         handleLoggedIn()
     }
     useEffect(() => {
         if (localStorage.token) {
-            console.log('inside ue',localStorage.getItem('token'))
             dispatch(asyncGetUser(getData))
         }
     }, [])

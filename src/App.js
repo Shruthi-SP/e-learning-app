@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 import Navbar from "./components/Navbar";
 
 function App(props) {
-  console.log('App props=', props)
   return (
     <div >
       <Container>
