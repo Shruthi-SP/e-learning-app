@@ -1,25 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
+import { Container, Typography } from "@mui/material";
+import { withRouter } from "react-router-dom";
+import Navbar from "./components/Navbar";
 
-function App() {
+function App(props) {
+  console.log('App props=', props)
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div >
+      <Container>
+        <Typography variant="h3" sx={{mt:3 , textAlign:'center'}}>Welcome to e-learning app</Typography>
+        <Navbar />
+      </Container>
     </div>
   );
 }
 
-export default App;
+export default withRouter(App)
