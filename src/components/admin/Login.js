@@ -5,7 +5,6 @@ import { Typography, TextField, Button } from "@mui/material"
 import { asyncLoginUser } from "../../actions/usersAction"
 
 const Login = (props) => {
-    console.log('login props', props)
     const {getData} = props
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -14,7 +13,6 @@ const Login = (props) => {
     const dispatch = useDispatch()
 
     const redirect = () => {
-        console.log('redirecting')
         props.history.push('/admin/account')
     }
 
