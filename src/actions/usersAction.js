@@ -36,8 +36,8 @@ export const asyncRegisterUser = (formData, redirect) => {
             })
     }
 }
-export const asyncLoginUser = (formData, redirect) => {
-    return () => {
+export const asyncLoginUser = (formData, redirect, getData) => {
+    return (dispatch) => {
         axios.post('/admin/login', formData)
             .then((response) => {
                 const result = response.data
@@ -57,7 +57,7 @@ export const asyncLoginUser = (formData, redirect) => {
                         footer: ''
                     })
                     localStorage.setItem('token', result.token)
-                    asyncGetUser()
+                    dispatch(asyncGetUser(getData))
                     redirect()
                 }
             })
@@ -75,7 +75,7 @@ export const asyncGetUser = (getData) => {
     return (dispatch) => {
         axios.get('/admin/account', {
             headers: {
-                Authorization: localStorage.getItem('adminToken')
+                Authorization: `${localStorage.getItem('token')}`
             }
         })
         .then((response) => {
@@ -89,6 +89,7 @@ export const asyncGetUser = (getData) => {
                 })
             }
             else {
+                console.log('from action to reducer')
                 dispatch(setUser(result))
                 if(getData){
                     getData(result)
