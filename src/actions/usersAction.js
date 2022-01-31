@@ -21,7 +21,9 @@ export const asyncRegisterUser = (formData, redirect) => {
                         text: result.notice,
                         footer: ''
                     })
-                    redirect()
+                    if(redirect){
+                        redirect()
+                    }
                 }
             })
             .catch((err) => {
@@ -54,7 +56,7 @@ export const asyncLoginUser = (formData, redirect) => {
                         text: 'Logged in successful',
                         footer: ''
                     })
-                    localStorage.setItem('adminToken', result.token)
+                    localStorage.setItem('token', result.token)
                     asyncGetUser()
                     redirect()
                 }
@@ -69,7 +71,7 @@ export const asyncLoginUser = (formData, redirect) => {
             })
     }
 }
-export const asyncGetUser = () => {
+export const asyncGetUser = (getData) => {
     return (dispatch) => {
         axios.get('/admin/account', {
             headers: {
@@ -88,6 +90,9 @@ export const asyncGetUser = () => {
             }
             else {
                 dispatch(setUser(result))
+                if(getData){
+                    getData(result)
+                }
             }
         })
         .catch((err) => {
