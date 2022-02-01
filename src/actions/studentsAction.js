@@ -1,0 +1,228 @@
+import Swal from "sweetalert2";
+import axios from "../config/axios-config";
+
+export const asyncGetAllStudents = () => {
+    return (dispatch) => {
+        axios.get('/admin/students', {
+            headers: {
+                Authorization: `${localStorage.getItem('token')}`
+            }
+        })
+            .then((response) => {
+                const result = response.data
+                if (result.hasOwnProperty('errors')) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: result.errors,
+                        footer: ''
+                    })
+                }
+                else {
+                    dispatch(getAllStudents(result))
+                }
+            })
+            .catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.message,
+                    footer: ''
+                })
+            })
+    }
+}
+
+export const asyncRegisterStudent = (formData, redirect) => {
+    return (dispatch) => {
+        axios.post('/admin/students', formData, {
+            headers: {
+                Authorization: `${localStorage.getItem('token')}`
+            }
+        })
+            .then((response) => {
+                const result = response.data
+                if (result.hasOwnProperty('errors')) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: result.errors,
+                        footer: ''
+                    })
+                }
+                else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Registered',
+                        text: result.notice,
+                        footer: ''
+                    })
+                    dispatch(addStudent(result))
+                    redirect()
+                }
+            })
+            .catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.message,
+                    footer: ''
+                })
+            })
+    }
+}
+export const asyncLoginStudent = (formData, redirect) => {
+    return (dispatch) => {
+        axios.post('/students/login', formData)
+            .then((response) => {
+                const result = response.data
+                if (result.hasOwnProperty('errors')) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: result.errors,
+                        footer: ''
+                    })
+                }
+                else {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Successful',
+                        text: 'Logged in successful',
+                        footer: ''
+                    })
+                    localStorage.setItem('token', result.token)
+                    redirect()
+                }
+            })
+            .catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.message,
+                    footer: ''
+                })
+            })
+    }
+}
+export const asyncGetStudent = (id, getStudent) => {
+    return (dispatch) => {
+        axios.get(`/students/${id}`, {
+            headers: {
+                Authorization: `${localStorage.getItem('token')}`
+            }
+        })
+            .then((response) => {
+                const result = response.data
+                if (result.hasOwnProperty('errors')) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: result.errors,
+                        footer: ''
+                    })
+                }
+                else {
+                    getStudent(result)
+                }
+            })
+            .catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.message,
+                    footer: ''
+                })
+            })
+    }
+}
+export const asyncUpdateStudent = (id, formData) => {
+    return (dispatch) => {
+        axios.put(`/students/${id}`, formData, {
+            headers: {
+                Authorization: `${localStorage.getItem('token')}`
+            }
+        })
+            .then((response) => {
+                const result = response.data
+                if (result.hasOwnProperty('errors')) {
+                    console.log('inside then err')
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: result.errors,
+                        footer: ''
+                    })
+                }
+                else {
+                    dispatch(updateStudent(result))
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Update successful',
+                        footer: ''
+                    })
+                }
+            })
+            .catch((err) => {
+                console.log('inside catch')
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.message,
+                    footer: ''
+                })
+            })
+    }
+}
+export const asyncDeleteStudent = (id) => {
+    return (dispatch) => {
+        axios.delete(`/admin/students/${id}`, {
+            headers: {
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        })
+            .then((response) => {
+                const result = response.data
+                if (result.hasOwnProperty('errors')) {
+                    console.log('inside then err')
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: result.errors,
+                        footer: ''
+                    })
+                }
+                else {
+                    dispatch(deleteStudent(result))
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Update successful',
+                        footer: ''
+                    })
+                }
+            })
+            .catch((err) => {
+                console.log('inside catch')
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.message,
+                    footer: ''
+                })
+            })
+    }
+}
+export const getAllStudents = (students) => {
+    return { type: 'GET_ALL_STUDENTS', payload: students }
+}
+export const addStudent = (studObj) => {
+    return { type: 'ADD_STUDENT', payload: studObj }
+}
+export const updateStudent = (studObj) => {
+    return { type: 'UPDATE_STUDENT', payload: studObj }
+}
+export const deleteStudent = (studObj) => {
+    return { type: 'DELETE_STUDENT', payload: studObj }
+}
