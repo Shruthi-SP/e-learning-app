@@ -45,16 +45,21 @@ const StudentRegisterForm = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         runValidation()
+        const resetForm = () => {
+            setName('')
+            setEmail('')
+            setPassword('')
+
+        }
         if (Object.keys(err).length === 0) {
             const formData = {
                 name: name,
-                email: email,
-                name: name,
+                email: email
             }
             if (!_id) {
                 formData.password = password
             }
-            formSubmission(formData)
+            formSubmission(formData, resetForm)
         }
         else {
             setFormErr(err)

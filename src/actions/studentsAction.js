@@ -33,7 +33,7 @@ export const asyncGetAllStudents = () => {
     }
 }
 
-export const asyncRegisterStudent = (formData, redirect) => {
+export const asyncRegisterStudent = (formData, resetForm) => {
     return (dispatch) => {
         axios.post('/admin/students', formData, {
             headers: {
@@ -54,11 +54,11 @@ export const asyncRegisterStudent = (formData, redirect) => {
                     Swal.fire({
                         icon: 'success',
                         title: 'Registered',
-                        text: result.notice,
+                        text: 'Student registered successfully',
                         footer: ''
                     })
                     dispatch(addStudent(result))
-                    redirect()
+                    resetForm()
                 }
             })
             .catch((err) => {

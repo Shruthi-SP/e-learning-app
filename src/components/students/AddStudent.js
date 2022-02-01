@@ -6,12 +6,8 @@ import StudentRegisterForm from './StudentRegisterForm'
 const AddStudent = (props) => {
     const dispatch = useDispatch()
 
-    const redirect = () => {
-        props.history.push('/admin/login')
-    }
-
-    const formSubmission = (formData) => {
-        dispatch(asyncRegisterStudent(formData, redirect))
+    const formSubmission = (formData, resetForm) => {
+        dispatch(asyncRegisterStudent(formData, resetForm))
     }
 
     return (
