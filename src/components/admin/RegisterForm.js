@@ -5,13 +5,13 @@ import { TextField, Button } from "@mui/material"
 
 const RegisterForm = (props) => {
 
-    const {email: editEmail, username: editUsername, name: editName, website:editWebsite, formSubmission, handleClose} = props
-
-    const [email, setEmail] = useState(editEmail ? editEmail: '')
+    const { _id, email: editEmail, username: editUsername, name: editName, website: editWebsite, formSubmission, handleClose } = props
+    console.log('editing', _id)
+    const [email, setEmail] = useState(editEmail ? editEmail : '')
     const [password, setPassword] = useState('')
     const [username, setUsername] = useState(editUsername ? editUsername : '')
     const [name, setName] = useState(editName ? editName : '')
-    const [website, setWebsite] = useState(editWebsite ? editWebsite: '')
+    const [website, setWebsite] = useState(editWebsite ? editWebsite : '')
     const [formErr, setFormErr] = useState({})
     const err = {}
 
@@ -57,26 +57,16 @@ const RegisterForm = (props) => {
         e.preventDefault()
         runValidation()
         if (Object.keys(err).length === 0) {
-            let formData={}
-            if(handleClose){
-                formData = {
-                    username: username,
-                    email: email,
-                    academy: {
-                        name: name,
-                        website: website
-                    }
+            const formData = {
+                username: username,
+                email: email,
+                academy: {
+                    name: name,
+                    website: website
                 }
-            }else{
-                formData = {
-                    username: username,
-                    email: email,
-                    password: password,
-                    academy: {
-                        name: name,
-                        website: website
-                    }
-                }
+            }
+            if (!_id) {
+                formData.password = password
             }
             formSubmission(formData)
         }
@@ -94,7 +84,7 @@ const RegisterForm = (props) => {
             <TextField label='Enter your email' variant='outlined' type='text' name='email' value={email} onChange={handleChange}></TextField><br />
             {formErr.email && <span style={{ color: 'red' }}>{formErr.email}</span>}<br />
 
-            {!editUsername && <><TextField label='Enter password' variant='outlined' type='password' name='password' value={password} onChange={handleChange} ></TextField> <br />
+            {!_id && <><TextField label='Enter password' variant='outlined' type='password' name='password' value={password} onChange={handleChange} ></TextField> <br />
             {formErr.password && <span style={{ color: 'red' }}>{formErr.password}</span>}<br /></>}
 
             <TextField label='Enter academy name' variant='outlined' type='text' name='name' value={name} onChange={handleChange} ></TextField> <br />
@@ -104,7 +94,7 @@ const RegisterForm = (props) => {
             {formErr.website && <span style={{ color: 'red' }}>{formErr.website}</span>}<br />
 
             <Button sx={{ mr: 1 }} type="submit" variant="contained" color="primary" size="small">Submit</Button>
-            {handleClose && <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" onClick={()=>{handleClose()}}>Cancel</Button>}
+            {handleClose && <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" onClick={() => { handleClose() }}>Cancel</Button>}
 
         </form>
     </div>

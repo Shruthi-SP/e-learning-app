@@ -6,7 +6,7 @@ function App(props) {
   return (
     <div >
       <Container>
-        <Typography variant="h3" sx={{mt:3 , textAlign:'center'}}>Welcome to e-learning app</Typography>
+        <Typography variant="h3" sx={{mt:3, mb:3 , textAlign:'center'}}>Welcome to e-learning app</Typography>
         <Navbar />
       </Container>
     </div>

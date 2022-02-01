@@ -5,7 +5,6 @@ import ModalAdmin from "./ModalAdmin"
 
 const Account = (props) => {
 
-    const [edit, setEdit] = useState(false)
     const [open, setOpen] = useState(false)
     
     const handleClose = () => {
@@ -17,8 +16,6 @@ const Account = (props) => {
     })
 
     const handleUpdate = () => {
-        console.log('clicked', user)
-        setEdit(!edit)
         setOpen(true)
     }
 
@@ -31,7 +28,6 @@ const Account = (props) => {
                 <p>Academy Name: <b>{user.academy.name}</b></p>
                 <p>Academy Website: <b>{user.academy.website}</b></p>
                 <Button variant="contained" size="small" onClick={handleUpdate}>Update</Button>
-                {/* {edit && <EditAdmin handleUpdate={handleUpdate} user={user} /> } */}
                 {open && <ModalAdmin user={user} handleClose={handleClose} open={open} />}
             </>}
         </div>

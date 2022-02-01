@@ -15,7 +15,7 @@ const AddAdmin = (props) => {
     }
 
     return (
-        <div style={{ width:'300px', margin:'auto', padding:'10px', textAlign: 'center', border: '1px solid grey', borderRadius:'10px'}}>
+        <div style={{ width:'300px', margin:'20px auto', padding:'10px', textAlign: 'center', border: '1px solid rgba(0, 0, 0, 0.1)', borderRadius:'10px'}}>
             <Typography variant="h5" sx={{m: 1}}>Admin Register</Typography>
             <RegisterForm formSubmission={formSubmission} />
         </div>

@@ -13,12 +13,11 @@ const ModalAdmin = (props) => {
     const { user, handleClose, open } = props
     let { academy } = user
     let { name, website } = academy
-    console.log(name, website)
+
     const dispatch = useDispatch()
 
     const formSubmission = (formData) => {
         dispatch(asyncUpdateUser(formData))
-        //handleUpdate()
         handleClose()
     }
 

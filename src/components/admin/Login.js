@@ -5,7 +5,7 @@ import { Typography, TextField, Button } from "@mui/material"
 import { asyncLoginUser } from "../../actions/usersAction"
 
 const Login = (props) => {
-    const {getData} = props
+    
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [formErr, setFormErr] = useState({})
@@ -47,14 +47,14 @@ const Login = (props) => {
                 email: email,
                 password: password,
             }
-            dispatch(asyncLoginUser(formData, redirect, getData))
+            dispatch(asyncLoginUser(formData, redirect))
         }
         else {
             setFormErr(err)
         }
     }
 
-    return <div style={{ width:'300px', height: '400px', margin:'auto', textAlign: 'center', border: '1px solid grey', borderRadius:'10px'}}>
+    return <div style={{ width:'300px', height: '300px', margin:'20px auto', textAlign: 'center', border: '1px solid rgba(0, 0, 0, 0.1)', borderRadius:'10px'}}>
         <Typography variant="h5" sx={{ m:3 }}>Admin Login</Typography>
         <form onSubmit={handleSubmit}>
 
