@@ -72,7 +72,7 @@ const Navbar = (props) => {
 
                 </Grid>
             }
-            <Route path='/' component={Home}></Route>
+            <Route path='/' exact component={Home}></Route>
             <Route path='/admin/register' component={AddAdmin}></Route>
             <Route path='/admin/login' render={(props) => {
                 return <Login {...props} getData={getData} />
