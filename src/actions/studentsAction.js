@@ -156,7 +156,6 @@ export const asyncUpdateStudent = (id, formData) => {
             .then((response) => {
                 const result = response.data
                 if (result.hasOwnProperty('errors')) {
-                    console.log('inside then err')
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',

@@ -11,11 +11,13 @@ import Paper from '@mui/material/Paper';
 import { IconButton, Typography } from '@mui/material';
 import { Delete, Edit, RemoveRedEyeOutlined } from "@mui/icons-material";
 import ModalView from "./ModalView";
+import StudentEdit from "./StudentEdit";
 
 const StudentsList = (props) => {
 
     const [students, setStudents] =useState([])
     const [view, setView] = useState(false)
+    const [edit, setEdit] = useState(false)
     const [id, setId] = useState('')
 
     const dispatch = useDispatch()
@@ -38,7 +40,8 @@ const StudentsList = (props) => {
         setView(!view)
     }
     const handleEdit = (e, ele) => {
-        console.log(ele)
+      edit ? setId('') : setId(ele._id)
+      setEdit(!edit)
     }
     const handleRemove = (e, ele) => {
         console.log(ele)
@@ -83,6 +86,7 @@ const StudentsList = (props) => {
                 <h1>Students - {students.length}</h1>
                 <BasicTable />
                 {view && <ModalView id={id} view={view} handleView={handleView} />}
+                {edit && <StudentEdit id={id} edit={edit} handleEdit={handleEdit} />}
             </>}
         </div>
     )
