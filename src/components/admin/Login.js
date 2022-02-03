@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import validator from 'validator'
 import { Typography, TextField, Button } from "@mui/material"
 import { asyncLoginUser } from "../../actions/usersAction"
+import { asyncGetAllStudents } from "../../actions/studentsAction"
 
 const Login = (props) => {
     
@@ -14,6 +15,7 @@ const Login = (props) => {
 
     const redirect = () => {
         props.history.push('/admin/account')
+        dispatch(asyncGetAllStudents())
     }
 
     const runValidation = () => {
