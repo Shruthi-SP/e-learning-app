@@ -188,7 +188,7 @@ export const asyncDeleteStudent = (id) => {
     return (dispatch) => {
         axios.delete(`/admin/students/${id}`, {
             headers: {
-                Authorization: `Bearer ${localStorage.getItem('token')}`
+                Authorization: `${localStorage.getItem('token')}`
             }
         })
             .then((response) => {
@@ -207,7 +207,7 @@ export const asyncDeleteStudent = (id) => {
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
-                        text: 'Update successful',
+                        text: 'Delete successful',
                         footer: ''
                     })
                 }
