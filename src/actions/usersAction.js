@@ -57,6 +57,7 @@ export const asyncLoginUser = (formData, redirect) => {
                         footer: ''
                     })
                     localStorage.setItem('token', result.token)
+                    localStorage.setItem('role', 'Admin')
                     dispatch(asyncGetUser())
                     redirect()
                 }

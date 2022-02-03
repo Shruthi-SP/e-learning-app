@@ -1,5 +1,7 @@
 import Swal from "sweetalert2";
 import axios from "../config/axios-config";
+import jwtDecode from "jwt-decode";
+import { setUser } from "./usersAction";
 
 export const asyncGetAllStudents = () => {
     return (dispatch) => {
@@ -71,7 +73,7 @@ export const asyncRegisterStudent = (formData, resetForm) => {
             })
     }
 }
-export const asyncLoginStudent = (formData, redirect) => {
+export const asyncLoginStudent = (formData, getId, redirect) => {
     return (dispatch) => {
         axios.post('/students/login', formData)
             .then((response) => {
@@ -85,13 +87,17 @@ export const asyncLoginStudent = (formData, redirect) => {
                     })
                 }
                 else {
+                    localStorage.setItem('token', result.token)
+                    localStorage.setItem('role', 'Student')
+                    let decoded = jwtDecode(result.token);
+                    console.log(decoded);
+                    getId(decoded)
                     Swal.fire({
                         icon: 'success',
                         title: 'Successful',
                         text: 'Logged in successful',
                         footer: ''
                     })
-                    localStorage.setItem('token', result.token)
                     redirect()
                 }
             })
@@ -123,7 +129,11 @@ export const asyncGetStudent = (id, getStudent) => {
                     })
                 }
                 else {
-                    getStudent(result)
+                    if(getStudent){
+                        getStudent(result)
+                    }else{
+                        dispatch(setUser(result))
+                    }
                 }
             })
             .catch((err) => {
