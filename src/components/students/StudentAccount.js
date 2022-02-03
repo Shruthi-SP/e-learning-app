@@ -1,24 +1,6 @@
-import { Button } from "@mui/material"
-import { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { asyncGetStudent } from "../../actions/studentsAction"
-import jwtDecode from "jwt-decode"
+import { useSelector } from "react-redux"
 
 const StudentAccount = (props) => {
-
-    //const [student, setStudent] = useState({})
-
-    // var token = localStorage.getItem('token')
-    // var decoded = jwtDecode(token);
-    // console.log(decoded);
-
-    // const getStudent = (obj) => {
-    //     setStudent(obj)
-    // }
-    // const dispatch = useDispatch()
-    // useEffect(() => {
-    //     dispatch(asyncGetStudent(id, getStudent))
-    // }, [])
 
     const student = useSelector(state=>{
         return state.user

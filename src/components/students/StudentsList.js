@@ -82,7 +82,7 @@ const StudentsList = (props) => {
             {students.length > 0 && <>
                 <h1>Students - {students.length}</h1>
                 <BasicTable />
-                {view && <ModalView id={id} handleView={handleView} />}
+                {view && <ModalView id={id} view={view} handleView={handleView} />}
             </>}
         </div>
     )
