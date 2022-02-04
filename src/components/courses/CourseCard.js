@@ -6,12 +6,17 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import { useSelector } from 'react-redux';
+import { withRouter } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
-export default function CourseCard(props) {
+function CourseCard(props) {
     const { course } = props
     const user = useSelector(state => {
         return state.user
     })
+    const handleView = (e, id) => {
+        props.history.push(`/courses/${id}`)
+    }
     return (
         <Card sx={{ maxWidth: 300, m:1 }}>
             <CardMedia
@@ -25,7 +30,7 @@ export default function CourseCard(props) {
                 <Typography variant="body2" color="text.secondary">{course.description}</Typography>
             </CardContent>
             <CardActions>
-                <Button color='warning' size="small">View</Button>
+                <Link style={{ textDecoration: 'none', color: 'orangered', fontSize:'0.8800rem', padding:'4px 5px', marginBottom:'2px' }} to={`/courses/${course._id}`}>VIEW</Link>
                 {
                     user.role === 'admin' && <>
                         <Button color='primary' size="small">Edit</Button>
@@ -36,3 +41,4 @@ export default function CourseCard(props) {
         </Card>
     );
 }
+export default withRouter(CourseCard)

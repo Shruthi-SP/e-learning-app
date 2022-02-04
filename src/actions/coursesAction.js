@@ -45,8 +45,8 @@ export const asyncCreateCourse = (formData) => {
                     dispatch(addCourse(result))
                     Swal.fire({
                         icon: 'success',
-                        title: 'Registered',
-                        text: 'Student registered successfully',
+                        title: 'Added',
+                        text: 'Course Added successfully',
                         footer: ''
                     })
                 }
@@ -79,13 +79,7 @@ export const asyncGetCourse = (id, getResult) => {
                     })
                 }
                 else {
-                    getResult(result)
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Registered',
-                        text: 'Student registered successfully',
-                        footer: ''
-                    })                    
+                    getResult(result)                 
                 }
             })
             .catch((err) => {
@@ -119,8 +113,8 @@ export const asyncUpdateCourse = (id, formData) => {
                     dispatch(asyncUpdateCourse(result))
                     Swal.fire({
                         icon: 'success',
-                        title: 'Registered',
-                        text: 'Student registered successfully',
+                        title: 'Updated',
+                        text: 'Course updated successfully',
                         footer: ''
                     })                    
                 }
@@ -156,8 +150,8 @@ export const asyncDeleteCourse = (id) => {
                     dispatch(deleteCourse(result))
                     Swal.fire({
                         icon: 'success',
-                        title: 'Registered',
-                        text: 'Student registered successfully',
+                        title: 'Deleted',
+                        text: 'Course deleted successfully',
                         footer: ''
                     })                    
                 }
