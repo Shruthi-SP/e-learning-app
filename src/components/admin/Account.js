@@ -1,11 +1,17 @@
 import { Button } from "@mui/material"
-import { useState } from "react"
-import { useSelector } from "react-redux"
+import { useEffect, useState } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { asyncGetAllCourses } from "../../actions/coursesAction"
 import ModalAdmin from "./ModalAdmin"
 
 const Account = (props) => {
 
     const [open, setOpen] = useState(false)
+
+    const dispatch = useDispatch()
+    useEffect(()=>{
+        dispatch(asyncGetAllCourses())
+    }, [])
     
     const handleClose = () => {
         setOpen(false)

@@ -1,10 +1,17 @@
-import { useSelector } from "react-redux"
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { asyncGetAllCourses } from "../../actions/coursesAction"
 
 const StudentAccount = (props) => {
 
     const student = useSelector(state=>{
         return state.user
     })
+
+    const dispatch = useDispatch()
+    useEffect(()=>{
+        dispatch(asyncGetAllCourses())
+    }, [])
 
     return (
         <div>

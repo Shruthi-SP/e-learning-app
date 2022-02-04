@@ -16,6 +16,7 @@ import StudentLogin from "./students/StudentLogin"
 import StudentAccount from "./students/StudentAccount"
 import { asyncGetStudent } from "../actions/studentsAction"
 import jwtDecode from "jwt-decode"
+import CoursesList from "./courses/CoursesList"
 
 const Navbar = (props) => {
     const [userLoggedIn, setUserLoggedIn] = useState(false)
@@ -96,6 +97,7 @@ const Navbar = (props) => {
                                     <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/student/account'>Account</Link>
                                 </>
                             }
+                            <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/courses'>Courses</Link>
                         </Grid>
 
                         <Grid item xs sx={{ display: "flex", justifyContent: "flex-end" }}>
@@ -136,6 +138,7 @@ const Navbar = (props) => {
             <PrivateRoute path='/admin/students' component={AddStudent} />
             <PrivateRoute path='/admin/allStudents' component={StudentsList} />
             <PrivateRoute path='/student/account' component={StudentAccount} />
+            <PrivateRoute path='/courses' component={CoursesList} />
         </div>
     )
 }
