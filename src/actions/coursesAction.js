@@ -106,12 +106,12 @@ export const asyncUpdateCourse = (id, formData) => {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: result.errors,
+                        text: result.errors.message,
                         footer: ''
                     })
                 }
                 else {
-                    dispatch(asyncUpdateCourse(result))
+                    dispatch(updateCourse(result))
                     Swal.fire({
                         icon: 'success',
                         title: 'Updated',
@@ -174,8 +174,8 @@ export const addCourse = (course) => {
     return { type: 'ADD_COURSE', payload: course }
 }
 export const updateCourse = (course) => {
-    return { type: 'UPDATE_STUDENT', payload: course }
+    return { type: 'UPDATE_COURSE', payload: course }
 }
 export const deleteCourse = (course) => {
-    return { type: 'DELETE_STUDENT', payload: course }
+    return { type: 'DELETE_COURSE', payload: course }
 }

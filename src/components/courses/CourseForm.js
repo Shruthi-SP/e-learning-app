@@ -15,7 +15,7 @@ import AdapterDateFns from '@material-ui/lab/AdapterDateFns'
 const CourseForm = (props) => {
     const { _id, name: editName, description: editDescription, duration: editDuration, category: editCategory, validity: editValidity, level: editLevel, author: editAuthor, releaseDate: editReleaseDate, formSubmission, handleClose, edit } = props
 
-    console.log('editing', _id)
+    console.log('editing', edit)
 
     const [name, setName] = useState(editName ? editName : '')
     const [description, setDescription] = useState(editDescription ? editDescription : '')
@@ -37,6 +37,7 @@ const CourseForm = (props) => {
         setLevel('')
         setAuthor('')
         setReleaseDate(null)
+        setFormErr({})
     }
 
     const runValidation = () => {
@@ -46,13 +47,13 @@ const CourseForm = (props) => {
         if (description.trim().length === 0) {
             err.description = 'description is required'
         }
-        if (duration.trim().length === 0) {
+        if (String(duration).trim().length === 0) {
             err.duration = 'duration is required'
         }
         if (category.trim().length === 0) {
             err.category = 'select category'
         }
-        if (validity.trim().length === 0) {
+        if (String(validity).trim().length === 0) {
             err.validity = 'validity(in months) required'
         }
         if (author.trim().length === 0) {
@@ -103,7 +104,11 @@ const CourseForm = (props) => {
                 validity: validity,
                 releaseDate: releaseDate
             }
+            if(edit){
+                formSubmission(formData)
+            }else{
             formSubmission(formData, resetForm)
+            }
         }
         else {
             setFormErr(err)
@@ -181,18 +186,10 @@ const CourseForm = (props) => {
                     </FormControl>
                     {formErr.level && <span style={{ color: 'red' }}>{formErr.level}</span>}<br /><br/>
 
-                    <Button sx={{mt:1}} type="submit" variant="contained" color="primary" size="small">Submit</Button>
-                    {edit && <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" onClick={() => { handleClose() }}>Cancel</Button>}
+                    <Button sx={{mt:1, mr:1}} type="submit" variant="contained" color="primary" size="small">Submit</Button>
+                    {edit && <Button sx={{ mt:1,mr: 1 }} variant="contained" color="primary" size="small" onClick={() => { handleClose() }}>Cancel</Button>}
                 </Grid>
             </Grid>
-            {/* <Grid container>
-                <Grid item xs={12} sm={7} sx={{ textAlign: 'center' }}>
-                    
-                </Grid>
-                <Grid item xs={12} sm={5}>
-                    
-                </Grid>
-            </Grid> */}
         </form>
     </div>
 }
