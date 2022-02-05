@@ -1,14 +1,10 @@
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { CardMedia, CardContent, CardActions, Card, Dialog, DialogActions, DialogContent, IconButton, Typography, Button} from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import CourseEdit from './CourseEdit';
+import { asyncDeleteCourse } from '../../actions/coursesAction';
 
 function CourseCard(props) {
     const { course } = props
@@ -16,10 +12,23 @@ function CourseCard(props) {
         return state.user
     })
 
-    const [edit, setEdit] = React.useState(false)
+    const [edit, setEdit] = useState(false)
+    const [remove, setRemove] = useState(false)
+
+    const dispatch = useDispatch()
 
     const handleEdit = () => {
-        setEdit(!edit)        
+        setEdit(!edit)
+    }
+    const handleRemove = (e) => {
+        setRemove(true)
+    }
+    const handleYes = (e, id) => {
+        dispatch(asyncDeleteCourse(id))
+        setRemove(false)
+    }
+    const handleClose = () => {
+        setRemove(false)
     }
 
     return (
@@ -40,12 +49,16 @@ function CourseCard(props) {
                     {
                         user.role === 'admin' && <>
                             <Button color='primary' size="small" onClick={handleEdit}>Edit</Button>
-                            <Button color='error' size="small">Delete</Button>
+                            <Button color='error' size="small" onClick={handleRemove}>Delete</Button>
                         </>
                     }
                 </CardActions>
             </Card>
             {edit && <CourseEdit id={course._id} handleEdit={handleEdit} edit={edit} />}
+            {remove && <Dialog open={remove} onClose={handleClose}>
+                <DialogContent>Are you sure want to delete?</DialogContent>
+                <DialogActions><Button onClick={(e) => { handleYes(e, course._id) }}>Yes</Button><Button onClick={handleClose}>No</Button></DialogActions>
+            </Dialog>}
         </>
     );
 }
