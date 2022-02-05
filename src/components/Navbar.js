@@ -18,6 +18,7 @@ import { asyncGetStudent } from "../actions/studentsAction"
 import jwtDecode from "jwt-decode"
 import CoursesList from "./courses/CoursesList"
 import CourseInfo from "./courses/CourseInfo"
+import AddCourse from "./courses/AddCourse"
 
 const Navbar = (props) => {
     const [userLoggedIn, setUserLoggedIn] = useState(false)
@@ -83,7 +84,7 @@ const Navbar = (props) => {
         <div>
             {
                 userLoggedIn ?
-                    <Grid container direction="row" sx={{ mt: 1, mb: 1 }} style={{ borderRadius: '2px', backgroundColor: '#63A1DE', width: '98%' }}>
+                    <Grid container direction="row" sx={{ mt: 1, mb: 1 }} style={{ borderRadius: '2px', backgroundColor: '#63A1DE' }}>
 
                         <Grid item xs sx={{ display: "flex", justifyContent: "flex-start", }} >
                             {
@@ -91,6 +92,7 @@ const Navbar = (props) => {
                                     <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/admin/account'>Account</Link>
                                     <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/admin/students'>Register-Student</Link>
                                     <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/admin/allStudents'>Students</Link>
+                                    {/* <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/admin/'>Create-Course</Link> */}
                                 </>
                             }
                             {
@@ -99,7 +101,7 @@ const Navbar = (props) => {
                                 </>
                             }
                             <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/courses'>Courses</Link>
-                            <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/courses/:id'>Course</Link>
+                            {/* <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/courses/:id'>Course</Link> */}
                         </Grid>
 
                         <Grid item xs sx={{ display: "flex", justifyContent: "flex-end" }}>
@@ -142,6 +144,7 @@ const Navbar = (props) => {
             <PrivateRoute path='/student/account' component={StudentAccount} />
             <PrivateRoute path='/courses' component={CoursesList} />
             <PrivateRoute path='/courses/:id' component={CourseInfo} />
+            <PrivateRoute path='/courses-create' component={AddCourse} />
         </div>
     )
 }

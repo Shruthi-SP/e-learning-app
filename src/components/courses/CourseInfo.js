@@ -30,12 +30,14 @@ const CourseInfo = (props) => {
                     <Typography variant="body" >Category: <b>{course.category}</b></Typography><br />
                     <Typography variant="body" >Author: <b>{course.author}</b></Typography><br />
                     <Typography variant="body" >Level: <b>{course.level}</b></Typography><br />
-                    <Typography variant="body" >Students Enrolled: {course.students.map(ele=>{
+                    {course.students && <Typography variant="body" >Students Enrolled: {course.students.map(ele=>{
                         return <li key={ele._id}><b>{ele.student}</b></li>
-                    })}</Typography>
+                    })}</Typography>}
                     <Typography variant="body" >Validity: <b>{course.validity}</b></Typography><br />
                     <Typography variant="body" >ID: <b>{course._id}</b></Typography><br />
-                    <Typography variant="body" >Created At: <b>{course.createdAt.slice(0,10).split('-').reverse().join('-')}</b></Typography>
+                    <Typography variant="body" >Created At: <b>{course.createdAt.slice(0,10).split('-').reverse().join('-')}</b></Typography><br/>
+                    <Typography variant="body" >Updated At: <b>{course.updatedAt.slice(0,10).split('-').reverse().join('-')}</b></Typography><br/>
+                    <Typography variant="body" >Created By: <b>{course.user}</b></Typography>
                 </>
             }
         </div>

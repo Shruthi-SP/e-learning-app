@@ -24,7 +24,7 @@ export const asyncGetAllCourses = () => {
             })
     }
 }
-export const asyncCreateCourse = (formData) => {
+export const asyncCreateCourse = (formData, resetForm) => {
     return (dispatch) => {
         axios.post('/courses', formData, {
             headers: {
@@ -43,6 +43,7 @@ export const asyncCreateCourse = (formData) => {
                 }
                 else {
                     dispatch(addCourse(result))
+                    resetForm()
                     Swal.fire({
                         icon: 'success',
                         title: 'Added',
