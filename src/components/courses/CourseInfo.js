@@ -8,7 +8,6 @@ const CourseInfo = (props) => {
     console.log('course id=', courseId)
 
     const [course, setCourse] = useState({})
-    const [userRole, setUserRole] = useState('')
 
     const user = useSelector(state => {
         return state.user
@@ -23,9 +22,6 @@ const CourseInfo = (props) => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(asyncGetCourse(courseId, getResult))
-        if (Object.keys(user).length > 0) {
-            setUserRole(user.role)
-        }
     }, [courseId])
 
     return (
@@ -46,11 +42,13 @@ const CourseInfo = (props) => {
                     <Typography variant="body" >Created At: <b>{course.createdAt.slice(0, 10).split('-').reverse().join('-')}</b></Typography><br />
                     <Typography variant="body" >Updated At: <b>{course.updatedAt.slice(0, 10).split('-').reverse().join('-')}</b></Typography><br />
                     <Typography variant="body" >Created By: <b>{course.user}</b></Typography><br />
-                    {userRole === 'admin' && <Button variant="contained" size="small" sx={{ m: 1, ml: 0 }}>Update</Button>}
+                    {(Object.keys(user).length > 0 && user.role === 'admin') && <>
+                        <Typography variant="body" >Created By: <b>{user.username}</b></Typography><br />
+                        <Button variant="contained" size="small" sx={{ m: 1, ml: 0 }}>Update</Button>
+                    </>}
                 </>
             }
         </div>
     )
-
 }
 export default CourseInfo
