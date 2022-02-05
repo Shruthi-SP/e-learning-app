@@ -1,4 +1,5 @@
 import { Button, Typography } from "@mui/material"
+import { handleBreakpoints } from "@mui/system"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { asyncGetCourse } from "../../actions/coursesAction"
@@ -8,6 +9,7 @@ const CourseInfo = (props) => {
     console.log('course id=', courseId)
 
     const [course, setCourse] = useState({})
+    const [edit, setEdit] = useState(false)
 
     const user = useSelector(state => {
         return state.user
@@ -23,6 +25,10 @@ const CourseInfo = (props) => {
     useEffect(() => {
         dispatch(asyncGetCourse(courseId, getResult))
     }, [courseId])
+
+    const handleEdit = () => {
+        setEdit(!edit)
+    }
 
     return (
         <div>
@@ -41,10 +47,7 @@ const CourseInfo = (props) => {
                     <Typography variant="body" >ID: <b>{course._id}</b></Typography><br />
                     <Typography variant="body" >Created At: <b>{course.createdAt.slice(0, 10).split('-').reverse().join('-')}</b></Typography><br />
                     <Typography variant="body" >Updated At: <b>{course.updatedAt.slice(0, 10).split('-').reverse().join('-')}</b></Typography><br />
-                    {(Object.keys(user).length > 0 && user.role === 'admin') && <>
-                        <Typography variant="body" >Created By: <b>{user.username}</b></Typography><br />
-                        <Button variant="contained" size="small" sx={{ m: 1, ml: 0 }}>Update</Button>
-                    </>}
+                    {(Object.keys(user).length > 0 && user.role === 'admin') && <Typography variant="body" >Created By: <b>{user.username}</b></Typography>}
                 </>
             }
         </div>
