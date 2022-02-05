@@ -41,7 +41,6 @@ const CourseInfo = (props) => {
                     <Typography variant="body" >ID: <b>{course._id}</b></Typography><br />
                     <Typography variant="body" >Created At: <b>{course.createdAt.slice(0, 10).split('-').reverse().join('-')}</b></Typography><br />
                     <Typography variant="body" >Updated At: <b>{course.updatedAt.slice(0, 10).split('-').reverse().join('-')}</b></Typography><br />
-                    <Typography variant="body" >Created By: <b>{course.user}</b></Typography><br />
                     {(Object.keys(user).length > 0 && user.role === 'admin') && <>
                         <Typography variant="body" >Created By: <b>{user.username}</b></Typography><br />
                         <Button variant="contained" size="small" sx={{ m: 1, ml: 0 }}>Update</Button>
