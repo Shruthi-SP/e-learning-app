@@ -1,5 +1,5 @@
 import { Grid, Typography } from '@mui/material'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { asyncGetAllCourses } from '../../actions/coursesAction'
@@ -10,15 +10,20 @@ const CoursesList = (props) => {
     const user = useSelector(state=>{
         return state.user
     })
-
+    const courses = useSelector(state => {
+        return state.courses
+    })
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(asyncGetAllCourses())
     }, [])
 
-    const courses = useSelector(state => {
-        return state.courses
-    })
+    // const [toggle, setToggle] = useState(false)
+    // const handleToggle = () => {
+    //     console.log('toggling', !toggle)
+    //     setToggle(!toggle)
+    // }
+
     return (
         <div>
             {
