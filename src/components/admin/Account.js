@@ -2,6 +2,7 @@ import { Button } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { asyncGetAllCourses } from "../../actions/coursesAction"
+import { asyncGetAllStudents } from "../../actions/studentsAction"
 import ModalAdmin from "./ModalAdmin"
 
 const Account = (props) => {
@@ -10,6 +11,7 @@ const Account = (props) => {
 
     const dispatch = useDispatch()
     useEffect(()=>{
+        dispatch(asyncGetAllStudents())
         dispatch(asyncGetAllCourses())
     }, [])
     
