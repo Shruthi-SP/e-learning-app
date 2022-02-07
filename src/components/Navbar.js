@@ -19,6 +19,7 @@ import jwtDecode from "jwt-decode"
 import CoursesList from "./courses/CoursesList"
 import CourseInfo from "./courses/CourseInfo"
 import AddCourse from "./courses/AddCourse"
+import MyCourses from "./courses/MyCourses"
 
 const Navbar = (props) => {
     const [userLoggedIn, setUserLoggedIn] = useState(false)
@@ -98,6 +99,7 @@ const Navbar = (props) => {
                             {
                                 !admin && <>
                                     <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/student/account'>Account</Link>
+                                    <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/mycourses'>My Courses</Link>
                                 </>
                             }
                             <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/courses'>Courses</Link>
@@ -144,6 +146,8 @@ const Navbar = (props) => {
             <PrivateRoute path='/student/account' component={StudentAccount} />
             <PrivateRoute path='/courses' component={CoursesList} />
             <PrivateRoute path='/courses/:id' component={CourseInfo} />
+            <PrivateRoute path='/mycourses' component={MyCourses} />
+            <PrivateRoute path='/mycourses/:id' component={CourseInfo} />
             <PrivateRoute path='/courses-create' component={AddCourse} />
         </div>
     )

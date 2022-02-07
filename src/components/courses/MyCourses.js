@@ -2,11 +2,10 @@ import { Grid, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { asyncGetAllCourses } from '../../actions/coursesAction'
-import { asyncGetAllStudents } from '../../actions/studentsAction'
+import { asyncGetAllCourses, asyncGetMyCourses } from '../../actions/coursesAction'
 import CourseCard from './CourseCard'
 
-const CoursesList = (props) => {
+const MyCourses = (props) => {
 
     const user = useSelector(state=>{
         return state.user
@@ -14,16 +13,23 @@ const CoursesList = (props) => {
     const courses = useSelector(state => {
         return state.courses
     })
+
+    const [myCourses, setMyCourses] = useState({})
+
+    const getResult = (arr) => {
+        console.log(arr)
+        setMyCourses(arr)
+    }
     const dispatch = useDispatch()
     useEffect(() => {
+        dispatch(asyncGetMyCourses(getResult))
         dispatch(asyncGetAllCourses())
-        dispatch(asyncGetAllStudents())
     }, []) 
 
     return (
         <div>
             {
-                courses.length > 0 && <Grid container>
+                myCourses.length > 0 && <Grid container>
                     <Grid container direction="row" sx={{ mt: 1, mb: 1 }}>
 
                         <Grid item xs sx={{ display: "flex", justifyContent: "flex-start", pt:1}}><Typography variant='h5'>Courses - {courses.length}</Typography></Grid>
@@ -36,9 +42,9 @@ const CoursesList = (props) => {
                     </Grid>
                     <Grid container >
                         {
-                            courses.map(ele => {
+                            myCourses.map(ele => {
                                 return <Grid item key={ele._id} xs={12} sm={6} md={4} >
-                                    <CourseCard course={ele} />
+                                    <CourseCard course={ele} enrolled={true} />
                                 </Grid>
                             })
                         }
@@ -48,4 +54,4 @@ const CoursesList = (props) => {
         </div>
     )
 }
-export default CoursesList
+export default MyCourses

@@ -3,16 +3,19 @@ import { handleBreakpoints } from "@mui/system"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { asyncGetCourse } from "../../actions/coursesAction"
+import { asyncGetStudent } from "../../actions/studentsAction"
 
 const CourseInfo = (props) => {
     const courseId = props.match.params.id
     console.log('course id=', courseId)
 
     const [course, setCourse] = useState({})
-    const [edit, setEdit] = useState(false)
 
     const user = useSelector(state => {
         return state.user
+    })
+    const students = useSelector(state => {
+        return state.students
     })
 
     const getResult = (obj) => {
@@ -20,14 +23,16 @@ const CourseInfo = (props) => {
             setCourse(obj)
         }
     }
-
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(asyncGetCourse(courseId, getResult))
     }, [courseId])
 
-    const handleEdit = () => {
-        setEdit(!edit)
+    const getStudentsName = (id) => {
+        if (students.length > 0) {
+            const student = students.find(ele => ele._id === id)
+            return student.name
+        }
     }
 
     return (
@@ -40,9 +45,14 @@ const CourseInfo = (props) => {
                     <Typography variant="body" >Category: <b>{course.category}</b></Typography><br />
                     <Typography variant="body" >Author: <b>{course.author}</b></Typography><br />
                     <Typography variant="body" >Level: <b>{course.level}</b></Typography><br />
-                    {course.students && <Typography variant="body" >Students Enrolled: {course.students.map(ele => {
-                        return <li key={ele._id}><b>{ele.student}</b></li>
-                    })}</Typography>}
+                    {(course.students && user.role === 'admin') && <>
+                        {<Typography variant="body" >Students Enrolled: {course.students.length > 0 ? <>
+                            {course.students.map(ele => {
+                                return <li key={ele._id}><b>{getStudentsName(ele.student)}</b><Button variant="outlined" size="small">unenroll</Button></li>
+                            })}</> : <>
+                            <Typography variant="body"><b>No students enrolled</b></Typography><br/></>}</Typography>
+                        }
+                    </>}
                     <Typography variant="body" >Validity: <b>{course.validity}</b></Typography><br />
                     <Typography variant="body" >ID: <b>{course._id}</b></Typography><br />
                     <Typography variant="body" >Created At: <b>{course.createdAt.slice(0, 10).split('-').reverse().join('-')}</b></Typography><br />

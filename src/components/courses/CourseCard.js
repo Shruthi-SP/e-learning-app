@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CardMedia, CardContent, CardActions, Card, Dialog, DialogActions, DialogContent, IconButton, Typography, Button} from '@mui/material'
+import { CardMedia, CardContent, CardActions, Card, Dialog, DialogActions, DialogContent, IconButton, Typography, Button } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom';
@@ -7,7 +7,7 @@ import CourseEdit from './CourseEdit';
 import { asyncDeleteCourse } from '../../actions/coursesAction';
 
 function CourseCard(props) {
-    const { course } = props
+    const { course, enrolled } = props
     const user = useSelector(state => {
         return state.user
     })
@@ -30,6 +30,12 @@ function CourseCard(props) {
     const handleClose = () => {
         setRemove(false)
     }
+    const handleUnenroll = () => {
+        console.log('unerolling')
+    }
+    const handleEnroll = () => {
+        console.log('erolling')
+    }
 
     return (
         <>
@@ -47,11 +53,13 @@ function CourseCard(props) {
                 <CardActions>
                     <Link style={{ textDecoration: 'none', color: 'orangered', fontSize: '0.8800rem', padding: '4px 5px', marginBottom: '2px' }} to={`/courses/${course._id}`}>VIEW</Link>
                     {
-                        user.role === 'admin' && <>
+                        user.role === 'admin' ? <>
                             <Button color='primary' size="small" onClick={handleEdit}>Edit</Button>
                             <Button color='error' size="small" onClick={handleRemove}>Delete</Button>
-                        </>
+                        </> : <>{ enrolled ? <Button color='primary' size="small" onClick={handleUnenroll}>unenroll</Button> : <></>
+                    }</>
                     }
+                    {!enrolled && <Button color='primary' size="small" onClick={handleEnroll}>enroll</Button>}
                 </CardActions>
             </Card>
             {edit && <CourseEdit id={course._id} handleEdit={handleEdit} edit={edit} />}

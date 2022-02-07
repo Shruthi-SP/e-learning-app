@@ -167,6 +167,29 @@ export const asyncDeleteCourse = (id) => {
             })
     }
 }
+export const asyncGetMyCourses = (getResult) => {
+    return() => {
+        axios.get('/courses/enrolled', {
+            headers: {
+                Authorization: `${localStorage.getItem('token')}`
+            }
+        })
+            .then((response) => {
+                const result = response.data
+                if (result.hasOwnProperty('errors')) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: result.errors,
+                        footer: ''
+                    })
+                }
+                else {
+                    getResult(result)
+                }
+            })
+    }
+}
 export const getAllCourses = (courses) => {
     return { type: 'GET_ALL_COURSES', payload: courses }
 }
