@@ -4,7 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import CourseEdit from './CourseEdit';
-import { asyncDeleteCourse } from '../../actions/coursesAction';
+import { asyncDeleteCourse, asyncEnrollCourseAdmin } from '../../actions/coursesAction';
+import CourseEnroll from './CourseEnroll';
 
 function CourseCard(props) {
     const { course, enrolled } = props
@@ -14,6 +15,7 @@ function CourseCard(props) {
 
     const [edit, setEdit] = useState(false)
     const [remove, setRemove] = useState(false)
+    const [enroll, setEnroll] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -33,8 +35,12 @@ function CourseCard(props) {
     const handleUnenroll = () => {
         console.log('unerolling')
     }
-    const handleEnroll = () => {
-        console.log('erolling')
+    const handleEnroll = (courseId, studentId) => {
+        console.log('enrolling')
+        setEnroll(!enroll)
+        // if(user.role==='admin'){
+        //     dispatch(asyncEnrollCourseAdmin(courseId, studentId))
+        // }
     }
 
     return (
@@ -67,6 +73,7 @@ function CourseCard(props) {
                 <DialogContent>Are you sure want to delete?</DialogContent>
                 <DialogActions><Button onClick={(e) => { handleYes(e, course._id) }}>Yes</Button><Button onClick={handleClose}>No</Button></DialogActions>
             </Dialog>}
+            {enroll && <CourseEnroll course={course} enroll={enroll} handleEnroll={handleEnroll} />}
         </>
     );
 }

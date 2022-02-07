@@ -22,6 +22,14 @@ export const asyncGetAllCourses = () => {
                     dispatch(getAllCourses(result))
                 }
             })
+            .catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.message,
+                    footer: ''
+                })
+            })
     }
 }
 export const asyncCreateCourse = (formData, resetForm) => {
@@ -186,6 +194,153 @@ export const asyncGetMyCourses = (getResult) => {
                 }
                 else {
                     getResult(result)
+                }
+            })
+            .catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.message,
+                    footer: ''
+                })
+            })
+    }
+}
+export const asyncEnrollCourseAdmin = (courseId, studentId, getResult) => {
+    console.log('async enroll',courseId,studentId,getResult, localStorage.getItem('token'))
+    return(dispatch) => {
+        axios.patch(`https://dct-e-learning.herokuapp.com/api/courses/enroll?courseId=${courseId}&studentId=${studentId}`, {
+            headers: {
+                Authorization: `${localStorage.getItem('token')}`
+            }
+        })
+            .then((response) => {
+                const result = response.data
+                console.log('inside then',result)
+                if (result.hasOwnProperty('errors')) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: result.errors,
+                        footer: ''
+                    })
+                }
+                else {
+                    getResult(result)
+                    dispatch(asyncGetAllCourses())
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Enrolled to the course successfully',
+                        footer: ''
+                    })   
+                }
+            })
+            .catch((err) => {
+                console.log('inside catch', err)
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.message,
+                    footer: ''
+                })
+            })
+    }
+}
+export const asyncUnenrollCourseAdmin = (courseId, studentId, getResult) => {
+    return(dispatch) => {
+        axios.patch(`/courses/unenroll?courseId=${courseId}&studentId=${studentId}`, {
+            headers: {
+                Authorization: `${localStorage.getItem('token')}`
+            }
+        })
+            .then((response) => {
+                const result = response.data
+                if (result.hasOwnProperty('errors')) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: result.errors,
+                        footer: ''
+                    })
+                }
+                else {
+                    getResult(result)
+                    dispatch(asyncGetAllCourses())
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Unenrolled from the course',
+                        footer: ''
+                    })   
+                }
+            })
+            .catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.message,
+                    footer: ''
+                })
+            })
+    }
+}
+export const asyncEnrollCourseStudent = (courseId, getResult) => {
+    return(dispatch) => {
+        axios.patch(`/courses/unenroll?courseId=${courseId}`, {
+            headers: {
+                Authorization: `${localStorage.getItem('token')}`
+            }
+        })
+            .then((response) => {
+                const result = response.data
+                if (result.hasOwnProperty('errors')) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: result.errors,
+                        footer: ''
+                    })
+                }
+                else {
+                    getResult(result)
+                    dispatch(asyncGetAllCourses())
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Unenrolled from the course',
+                        footer: ''
+                    })   
+                }
+            })
+    }
+}
+export const asyncUnenrollCourseStudent = (courseId, getResult) => {
+    return(dispatch) => {
+        axios.patch(`/courses/unenroll?courseId=${courseId}`, {
+            headers: {
+                Authorization: `${localStorage.getItem('token')}`
+            }
+        })
+            .then((response) => {
+                const result = response.data
+                if (result.hasOwnProperty('errors')) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: result.errors,
+                        footer: ''
+                    })
+                }
+                else {
+                    getResult(result)
+                    dispatch(asyncGetAllCourses())
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Unenrolled from the course',
+                        footer: ''
+                    })   
                 }
             })
     }

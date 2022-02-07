@@ -14,7 +14,7 @@ import AddStudent from "./students/AddStudent"
 import StudentsList from "./students/StudentsList"
 import StudentLogin from "./students/StudentLogin"
 import StudentAccount from "./students/StudentAccount"
-import { asyncGetStudent } from "../actions/studentsAction"
+import { asyncGetAllStudents, asyncGetStudent } from "../actions/studentsAction"
 import jwtDecode from "jwt-decode"
 import CoursesList from "./courses/CoursesList"
 import CourseInfo from "./courses/CourseInfo"
@@ -40,6 +40,7 @@ const Navbar = (props) => {
             else if(role==='Admin'){
                 console.log(login, localStorage.role)
                 dispatch(asyncGetUser())
+                dispatch(asyncGetAllStudents())
                 setLogin('Admin')
             }
         }
