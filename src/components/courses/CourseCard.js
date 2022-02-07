@@ -56,7 +56,7 @@ function CourseCard(props) {
                         user.role === 'admin' ? <>
                             <Button color='primary' size="small" onClick={handleEdit}>Edit</Button>
                             <Button color='error' size="small" onClick={handleRemove}>Delete</Button>
-                        </> : <>{ enrolled ? <Button color='primary' size="small" onClick={handleUnenroll}>unenroll</Button> : <></>
+                        </> : <>{ enrolled && <Button color='primary' size="small" onClick={handleUnenroll}>unenroll</Button>
                     }</>
                     }
                     {!enrolled && <Button color='primary' size="small" onClick={handleEnroll}>enroll</Button>}

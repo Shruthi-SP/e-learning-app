@@ -1,7 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { asyncGetAllCourses } from "../../actions/coursesAction"
-import { asyncGetAllStudents } from "../../actions/studentsAction"
 
 const StudentAccount = (props) => {
 
@@ -11,7 +10,6 @@ const StudentAccount = (props) => {
 
     const dispatch = useDispatch()
     useEffect(()=>{
-        dispatch(asyncGetAllStudents())
         dispatch(asyncGetAllCourses())
     }, [])
 

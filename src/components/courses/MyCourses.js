@@ -36,7 +36,7 @@ const MyCourses = (props) => {
 
                         <Grid item xs sx={{ display: "flex", justifyContent: "flex-end" }}>
                             {(Object.keys(user).length > 0) && <> 
-                            {user.role==='admin' ? <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '22px' }} to={`/courses-create`}>Add Course</Link>: <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '22px' }} to={`/mycourses`}>All Course</Link> } 
+                            {user.role==='admin' ? <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '22px' }} to={`/courses-create`}>Add Course</Link>: <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '22px' }} to={`/courses`}>All Courses</Link> } 
                             </>}
                         </Grid>
                     </Grid>

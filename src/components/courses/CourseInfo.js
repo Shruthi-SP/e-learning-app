@@ -1,13 +1,11 @@
 import { Button, Typography } from "@mui/material"
-import { handleBreakpoints } from "@mui/system"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { asyncGetCourse } from "../../actions/coursesAction"
-import { asyncGetStudent } from "../../actions/studentsAction"
+
 
 const CourseInfo = (props) => {
     const courseId = props.match.params.id
-    console.log('course id=', courseId)
 
     const [course, setCourse] = useState({})
 
