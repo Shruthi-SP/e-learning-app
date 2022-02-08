@@ -207,9 +207,8 @@ export const asyncGetMyCourses = (getResult) => {
     }
 }
 export const asyncEnrollCourseAdmin = (courseId, studentId, getResult) => {
-    console.log('async enroll',courseId,studentId,getResult, localStorage.getItem('token'))
     return(dispatch) => {
-        axios.patch(`https://dct-e-learning.herokuapp.com/api/courses/enroll?courseId=${courseId}&studentId=${studentId}`, {
+        axios.patch(`/courses/enroll?courseId=${courseId}&studentId=${studentId}`, {
             headers: {
                 Authorization: `${localStorage.getItem('token')}`
             }
@@ -287,7 +286,7 @@ export const asyncUnenrollCourseAdmin = (courseId, studentId, getResult) => {
 }
 export const asyncEnrollCourseStudent = (courseId, getResult) => {
     return(dispatch) => {
-        axios.patch(`/courses/unenroll?courseId=${courseId}`, {
+        axios.patch(`/courses/enroll?courseId=${courseId}`, {
             headers: {
                 Authorization: `${localStorage.getItem('token')}`
             }
@@ -312,6 +311,14 @@ export const asyncEnrollCourseStudent = (courseId, getResult) => {
                         footer: ''
                     })   
                 }
+            })
+            .catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.message,
+                    footer: ''
+                })
             })
     }
 }
@@ -342,6 +349,14 @@ export const asyncUnenrollCourseStudent = (courseId, getResult) => {
                         footer: ''
                     })   
                 }
+            })
+            .catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.message,
+                    footer: ''
+                })
             })
     }
 }

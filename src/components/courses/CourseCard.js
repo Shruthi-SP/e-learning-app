@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 import CourseEdit from './CourseEdit';
-import { asyncDeleteCourse, asyncEnrollCourseAdmin } from '../../actions/coursesAction';
+import { asyncDeleteCourse, asyncEnrollCourseStudent, asyncUnenrollCourseStudent } from '../../actions/coursesAction';
 import CourseEnroll from './CourseEnroll';
 
 function CourseCard(props) {
@@ -32,15 +32,22 @@ function CourseCard(props) {
     const handleClose = () => {
         setRemove(false)
     }
+    
+    const getResult = (obj) => {
+        console.log(obj)
+    }
+    const handleEnroll = () => {
+        console.log('enrolling')
+        if (user.role === 'admin') {
+            setEnroll(!enroll)
+        }
+        else {
+            dispatch(asyncEnrollCourseStudent(course._id, getResult))
+        }
+    }
     const handleUnenroll = () => {
         console.log('unerolling')
-    }
-    const handleEnroll = (courseId, studentId) => {
-        console.log('enrolling')
-        setEnroll(!enroll)
-        // if(user.role==='admin'){
-        //     dispatch(asyncEnrollCourseAdmin(courseId, studentId))
-        // }
+        dispatch(asyncUnenrollCourseStudent(course._id, getResult))
     }
 
     return (
@@ -62,8 +69,8 @@ function CourseCard(props) {
                         user.role === 'admin' ? <>
                             <Button color='primary' size="small" onClick={handleEdit}>Edit</Button>
                             <Button color='error' size="small" onClick={handleRemove}>Delete</Button>
-                        </> : <>{ enrolled && <Button color='primary' size="small" onClick={handleUnenroll}>unenroll</Button>
-                    }</>
+                        </> : <>{enrolled && <Button color='primary' size="small" onClick={handleUnenroll}>unenroll</Button>
+                        }</>
                     }
                     {!enrolled && <Button color='primary' size="small" onClick={handleEnroll}>enroll</Button>}
                 </CardActions>

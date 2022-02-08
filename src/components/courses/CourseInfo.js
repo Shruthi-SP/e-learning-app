@@ -2,14 +2,15 @@ import { Button, Typography } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { asyncGetCourse } from "../../actions/coursesAction"
+import { asyncGetCourse, asyncEnrollCourseStudent, asyncUnenrollCourseAdmin } from "../../actions/coursesAction"
 import { asyncGetAllStudents } from "../../actions/studentsAction"
-
+import CourseEnroll from "./CourseEnroll"
 
 const CourseInfo = (props) => {
     const courseId = props.match.params.id
 
     const [course, setCourse] = useState({})
+    const [enroll, setEnroll] = useState(false)
 
     const user = useSelector(state => {
         return state.user
@@ -37,6 +38,21 @@ const CourseInfo = (props) => {
             return student.name
         }
     }
+    const getData = (obj) => {
+        console.log(obj)
+    }
+    const handleEnroll = () => {
+        console.log('enrolling')
+        if (user.role === 'admin') {
+            setEnroll(!enroll)
+        }
+        else {
+            dispatch(asyncEnrollCourseStudent(course._id, getData))
+        }
+    }
+    const handleUnenroll = (e, studentId) => {
+        dispatch(asyncUnenrollCourseAdmin(courseId, studentId, getData))
+    }
 
     return (
         <div>
@@ -51,7 +67,7 @@ const CourseInfo = (props) => {
                     {(course.students && user.role === 'admin') && <>
                         {<Typography variant="body" >Students Enrolled: {course.students.length > 0 ? <>
                             {course.students.map(ele => {
-                                return <li key={ele._id}><b>{getStudentsName(ele.student)}</b><Button variant="outlined" size="small" sx={{ml:1}}>unenroll</Button></li>
+                                return <li key={ele.student}><b>{getStudentsName(ele.student)}</b><Button variant="outlined" size="small" sx={{ml:1}} onClick={(e)=>{handleUnenroll(e, ele._id)}}>unenroll</Button></li>
                             })}</> : <>
                             <Typography variant="body"><b>No students enrolled</b></Typography><br/></>}</Typography>
                         }
@@ -62,9 +78,11 @@ const CourseInfo = (props) => {
                     <Typography variant="body" >Updated At: <b>{course.updatedAt.slice(0, 10).split('-').reverse().join('-')}</b></Typography><br />
                     {(Object.keys(user).length > 0 && user.role === 'admin') && <>
                     <Typography variant="body" >Created By: <b>{user.username}</b></Typography><br />
-                    <Button variant="outlined" size="small" sx={{m:1, ml:0}} >enroll</Button>
-                    <Link style={{ textDecoration: 'none', color: 'blueviolet', fontSize: '0.8800rem', padding: '4px 10px', paddingBottom:'6px', marginBottom: '2px', border:'1px solid blueviolet', borderRadius:'5px' }} to={`/courses`} >BACK</Link>
-                    </>}                  
+                    <Button variant="outlined" size="small" sx={{m:1, ml:0}} onClick={()=>{handleEnroll()}} >enroll</Button> 
+                    </>}
+                    {user.role==='student' && <br />}
+                    <Link style={{ textDecoration: 'none', color: 'blueviolet', fontSize: '0.8800rem', padding: '3px 10px', paddingBottom:'6px',marginTop:'5px', marginBottom: '2px', border:'1px solid blueviolet', borderRadius:'5px' }} to={`/courses`} >BACK</Link> 
+                    {enroll && <CourseEnroll course={course} enroll={enroll} handleEnroll={handleEnroll} />}                                    
                 </>
             }
         </div>
