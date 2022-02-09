@@ -207,7 +207,6 @@ export const asyncGetMyCourses = (getResult) => {
     }
 }
 export const asyncEnrollCourseAdmin = (courseId, studentId, getResult) => {
-    console.log(`/courses/enroll?courseId=${courseId}&studentId=${studentId}`)
     return(dispatch) => {
         axios.patch(`/courses/enroll?courseId=${courseId}&studentId=${studentId}`, {},  {
             headers: {

@@ -12,7 +12,7 @@ const StudentEnroll = (props) => {
     const [course, setCourse] = useState(null)
 
     const getResult = (obj) => {
-        console.log(obj)
+        //console.log(obj)
     }
 
     const defaultProps = {
