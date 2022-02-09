@@ -10,7 +10,6 @@ const StudentEnroll = (props) => {
     })
 
     const [course, setCourse] = useState(null)
-    console.log('selected course', course)
 
     const getResult = (obj) => {
         console.log(obj)
@@ -18,7 +17,7 @@ const StudentEnroll = (props) => {
 
     const defaultProps = {
         options: courses,
-        getOptionLabel: (option) => option.title
+        getOptionLabel: (option) => option.name
     }
     const dispatch = useDispatch()
     const handleEnrollCourse = (e, cid, sid) => {
@@ -44,7 +43,7 @@ const StudentEnroll = (props) => {
                                     }}
                                     renderOption={(props, option) => (
                                         <Box component="li" {...props} key={option._id}>
-                                            {option.title}
+                                            {option.name}
                                         </Box>
                                     )}
                                     renderInput={(params) => <TextField {...params} label="Select the Course" />}
@@ -53,7 +52,7 @@ const StudentEnroll = (props) => {
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={(e) => { handleEnrollCourse(e, course._id, student._id) }}>Enroll</Button>
-                            <Button onClick={handleEnroll()}>Close</Button>
+                            <Button onClick={handleEnroll}>Close</Button>
                         </DialogActions>
                     </Dialog>
                 </>

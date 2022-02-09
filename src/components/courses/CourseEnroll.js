@@ -8,7 +8,6 @@ const CourseEnroll = (props) => {
     const students = useSelector(state => {
         return state.students
     })
-    console.log('course enroll compt', students.length)
 
     const [student, setStudent] = useState(null)
     console.log('selected student', student)
@@ -54,7 +53,7 @@ const CourseEnroll = (props) => {
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={(e) => { handleEnrollCourse(e, course._id, student._id) }}>Enroll</Button>
-                            <Button onClick={handleEnroll()}>Close</Button>
+                            <Button onClick={handleEnroll}>Close</Button>
                         </DialogActions>
                     </Dialog>
                 // </>

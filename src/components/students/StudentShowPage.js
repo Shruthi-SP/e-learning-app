@@ -16,6 +16,7 @@ const StudentShowPage = (props) => {
     const [enroll, setEnroll] = useState(false)
 
     const getStudent = (obj) => {
+        console.log('getting res obj from useEff', obj)
         setStudent(obj)
     }
 
@@ -23,7 +24,7 @@ const StudentShowPage = (props) => {
     useEffect(() => {
         dispatch(asyncGetStudent(id, getStudent))
         dispatch(asyncGetAllCourses())
-    }, [])
+    }, [id, enroll])
 
     const user = useSelector(state => {
         return state.user
@@ -39,7 +40,7 @@ const StudentShowPage = (props) => {
 
     const getData = (obj) => {
         console.log('getting enrolled/unenroll obj=',obj)
-        setEnroll(false)
+        dispatch(asyncGetStudent(id, getStudent))
     }
     const handleEnroll = () => {
         console.log('enrolling', (!enroll))

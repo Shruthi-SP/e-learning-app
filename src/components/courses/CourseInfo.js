@@ -41,6 +41,7 @@ const CourseInfo = (props) => {
     }
     const getData = (obj) => {
         console.log('getting enrolled/unenroll obj=',obj)
+        setCourse(obj)
     }
     const handleEnroll = () => {
         console.log('enrolling')
