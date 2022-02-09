@@ -21,6 +21,7 @@ import CourseInfo from "./courses/CourseInfo"
 import AddCourse from "./courses/AddCourse"
 import MyCourses from "./courses/MyCourses"
 import LecturesList from "./lectures/LecturesList"
+import AddLecture from "./lectures/AddLecture"
 
 const Navbar = (props) => {
     const [userLoggedIn, setUserLoggedIn] = useState(false)
@@ -149,6 +150,7 @@ const Navbar = (props) => {
             <PrivateRoute path='/courses' component={CoursesList} />
             <PrivateRoute path='/courses/:id' component={CourseInfo} />
             <PrivateRoute path='/courses/:id/lectures' component={LecturesList} />
+            <PrivateRoute path='/courses/:id/create' component={AddLecture} />
             <PrivateRoute path='/mycourses' component={MyCourses} />
             <PrivateRoute path='/mycourses/:id' component={CourseInfo} />
             <PrivateRoute path='/mycourses/:id/lectures' component={LecturesList} />

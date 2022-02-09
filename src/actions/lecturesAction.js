@@ -2,7 +2,6 @@ import axios from "../config/axios-config";
 import Swal from "sweetalert2";
 
 export const asyncAllLectures = (courseId) => {
-    console.log('async lec', courseId)
     return (dispatch) => {
         axios.get(`/courses/${courseId}/lectures`, {
             headers: {
@@ -11,7 +10,6 @@ export const asyncAllLectures = (courseId) => {
         })
             .then((response) => {
                 const result = response.data
-                console.log('all lec res',result)
                 if (result.hasOwnProperty('errors')) {
                     Swal.fire({
                         icon: 'error',
@@ -34,20 +32,21 @@ export const asyncAllLectures = (courseId) => {
             })
     }
 }
-export const asyncCreateLecture = (courseId, formData) => {
+export const asyncCreateLecture = (courseId, formData, redirect) => {
     return (dispatch) => {
-        axios.get(`/courses/${courseId}/lectures`, formData, {
+        axios.post(`/courses/${courseId}/lectures`, formData, {
             headers: {
                 Authorization: localStorage.getItem('token')
             }
         })
             .then((response) => {
                 const result = response.data
+                console.log('async create',result)
                 if (result.hasOwnProperty('errors')) {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: result.errors,
+                        text: result.message,
                         footer: ''
                     })
                 }
@@ -59,6 +58,7 @@ export const asyncCreateLecture = (courseId, formData) => {
                         text: 'Course Added successfully',
                         footer: ''
                     })
+                    redirect()
                 }
             })
             .catch((err) => {
@@ -104,7 +104,7 @@ export const asyncGetLecture = (courseId, lectureId, getResult) => {
 }
 export const asyncUpdateLecture = (courseId, lectureId, formData) => {
     return (dispatch) => {
-        axios.get(`/courses/${courseId}/lectures/${lectureId}`, formData, {
+        axios.put(`/courses/${courseId}/lectures/${lectureId}`, formData, {
             headers: {
                 Authorization: localStorage.getItem('token')
             }
@@ -141,7 +141,7 @@ export const asyncUpdateLecture = (courseId, lectureId, formData) => {
 }
 export const asyncDeleteLecture = (courseId, lectureId) => {
     return (dispatch) => {
-        axios.get(`/courses/${courseId}/lectures/${lectureId}`, {
+        axios.delete(`/courses/${courseId}/lectures/${lectureId}`, {
             headers: {
                 Authorization: localStorage.getItem('token')
             }

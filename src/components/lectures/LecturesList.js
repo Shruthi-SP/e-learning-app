@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import { asyncAllLectures } from "../../actions/lecturesAction"
 
 const LecturesList = (props) => {
-    console.log('lectures', props)
     const courseId = props.match.params.id
 
     const [edit, setEdit] = useState(false)
@@ -43,7 +42,7 @@ const LecturesList = (props) => {
                 </Grid>
                 <Grid item xs sx={{ display: "flex", justifyContent: "flex-end" }}>
                     {(Object.keys(user).length > 0 && user.role === 'admin') && <>
-                        <Link style={{ margin: '5px', marginTop:'10px', textDecoration: 'none'}} to={`#`}><Tooltip title="Add lecture"><AddTask color="success" /></Tooltip></Link></>}
+                        <Link style={{ margin: '5px', marginTop:'10px', textDecoration: 'none'}} to={`/courses/${courseId}/create`}><Tooltip title="Add lecture"><AddTask color="success" /></Tooltip></Link></>}
                     <Link style={{ margin: '5px', marginTop:'10px', textDecoration: 'none' }} to={`/courses/${courseId}`}><Tooltip title="Back" ><KeyboardDoubleArrowLeft color="primary" /></Tooltip></Link>
                 </Grid>
             </Grid>

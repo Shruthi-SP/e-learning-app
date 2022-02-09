@@ -7,7 +7,6 @@ import { asyncGetAllStudents } from '../../actions/studentsAction'
 import CourseCard from './CourseCard'
 
 const CoursesList = (props) => {
-    console.log('Courses props', props)
 
     const user = useSelector(state=>{
         return state.user
@@ -15,11 +14,11 @@ const CoursesList = (props) => {
     const courses = useSelector(state => {
         return state.courses
     })
+    
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(asyncGetAllCourses())
         if(user.role==='admin'){
-            console.log(' useEff dispatching students')
             dispatch(asyncGetAllStudents())
         }
     }, []) 
