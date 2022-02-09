@@ -1,4 +1,4 @@
-import { Button, Typography } from "@mui/material"
+import { Button, Typography, Grid } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
@@ -58,7 +58,16 @@ const CourseInfo = (props) => {
         <div>
             {
                 Object.keys(course).length > 0 && <>
-                    <Typography variant="h5">Course - <b>{course.name}</b></Typography><br />
+                    <Grid container direction="row" sx={{ mt: 1, mb: 1 }}>
+
+                        <Grid item xs sx={{ display: "flex", justifyContent: "flex-start", pt:1}}><Typography variant='h5'>Course - <b>{course.name}</b></Typography></Grid>
+
+                        <Grid item xs sx={{ display: "flex", justifyContent: "flex-end" }}>
+                            {(Object.keys(user).length > 0) && <> 
+                            {user.role==='admin' && <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '22px' }} to={`/courses/${courseId}/lectures`}>Lectures</Link>} 
+                            </>}
+                        </Grid>
+                    </Grid>
                     <Typography variant="body" >Description: <b>{course.description}</b></Typography><br />
                     <Typography variant="body" >Duration: <b>{course.duration}</b></Typography><br />
                     <Typography variant="body" >Category: <b>{course.category}</b></Typography><br />
@@ -82,7 +91,7 @@ const CourseInfo = (props) => {
                     </>}
                     {user.role==='student' && <br />}
                     <Link style={{ textDecoration: 'none', color: 'blueviolet', fontSize: '0.8800rem', padding: '3px 10px', paddingBottom:'6px',marginTop:'5px', marginBottom: '2px', border:'1px solid blueviolet', borderRadius:'5px' }} to={`/courses`} >BACK</Link> 
-                    {enroll && <CourseEnroll course={course} enroll={enroll} handleEnroll={handleEnroll} />}                                    
+                    {enroll && <CourseEnroll course={course} enroll={enroll} handleEnroll={handleEnroll} />}                             
                 </>
             }
         </div>
