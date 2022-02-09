@@ -64,6 +64,9 @@ const StudentRegisterForm = (props) => {
             setFormErr(err)
         }
     }
+    const handleCancel = () => {
+        props.history.push('/admin/students')
+    }
 
     return <div>
         <form onSubmit={handleSubmit}>
@@ -78,7 +81,7 @@ const StudentRegisterForm = (props) => {
             {formErr.password && <span style={{ color: 'red' }}>{formErr.password}</span>}<br /></>}
 
             <Button sx={{ mr: 1 }} type="submit" variant="contained" color="primary" size="small">Submit</Button>
-            {_id && <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" onClick={() => { handleClose() }}>Cancel</Button>}
+            <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" onClick={() => { edit ? handleClose() : handleCancel() }}>Cancel</Button>
 
         </form>
     </div>

@@ -22,6 +22,7 @@ import AddCourse from "./courses/AddCourse"
 import MyCourses from "./courses/MyCourses"
 import LecturesList from "./lectures/LecturesList"
 import AddLecture from "./lectures/AddLecture"
+import StudentShowPage from "./students/StudentShowPage"
 
 const Navbar = (props) => {
     const [userLoggedIn, setUserLoggedIn] = useState(false)
@@ -94,9 +95,9 @@ const Navbar = (props) => {
                             {
                                 admin && <>
                                     <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/admin/account'>Account</Link>
-                                    <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/admin/students'>Register-Student</Link>
-                                    <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/admin/allStudents'>Students</Link>
-                                    {/* <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/admin/'>Create-Course</Link> */}
+                                    
+                                    <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/admin/students'>Students</Link>
+                                    
                                 </>
                             }
                             {
@@ -106,7 +107,7 @@ const Navbar = (props) => {
                                 </>
                             }
                             <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/courses'>Courses</Link>
-                            {/* <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/courses/:id'>Course</Link> */}
+                            
                         </Grid>
 
                         <Grid item xs sx={{ display: "flex", justifyContent: "flex-end" }}>
@@ -144,8 +145,9 @@ const Navbar = (props) => {
                 return <StudentLogin {...props} />
             }}></Route>
             <PrivateRoute path='/admin/account' component={Account} />
-            <PrivateRoute path='/admin/students' component={AddStudent} />
-            <PrivateRoute path='/admin/allStudents' component={StudentsList} />
+            <PrivateRoute path='/admin/create-student' component={AddStudent} />
+            <PrivateRoute path='/admin/students' component={StudentsList} />
+            <PrivateRoute path='/admin/students/:id' component={StudentShowPage} />
             <PrivateRoute path='/student/account' component={StudentAccount} />
             <PrivateRoute path='/courses' component={CoursesList} />
             <PrivateRoute path='/courses/:id' component={CourseInfo} />

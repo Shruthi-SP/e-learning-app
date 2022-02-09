@@ -3,23 +3,22 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { asyncEnrollCourseAdmin } from "../../actions/coursesAction"
 
-const CourseEnroll = (props) => {
-    const { course, enroll, handleEnroll } = props
-    const students = useSelector(state => {
-        return state.students
+const StudentEnroll = (props) => {
+    const { student, enroll, handleEnroll } = props
+    const courses = useSelector(state => {
+        return state.courses
     })
-    console.log('course enroll compt', students.length)
 
-    const [student, setStudent] = useState(null)
-    console.log('selected student', student)
+    const [course, setCourse] = useState(null)
+    console.log('selected course', course)
 
     const getResult = (obj) => {
         console.log(obj)
     }
 
     const defaultProps = {
-        options: students,
-        getOptionLabel: (option) => option.name,
+        options: courses,
+        getOptionLabel: (option) => option.title
     }
     const dispatch = useDispatch()
     const handleEnrollCourse = (e, cid, sid) => {
@@ -31,24 +30,24 @@ const CourseEnroll = (props) => {
     return (
         <div >
             {
-                // students.length > 0 && <>
+                courses.length > 0 && <>
                     <Dialog open={enroll} onClose={handleEnroll} fullWidth={true}>
-                        <DialogTitle>Enroll to the course {course.name} </DialogTitle>
+                        <DialogTitle>Enrolling {student.name} to a course </DialogTitle>
                         <DialogContent>
                             <Grid>
                                 <Autocomplete
                                     {...defaultProps}
                                     sx={{ width: 300, m: 2 }}
-                                    value={student}
+                                    value={course}
                                     onChange={(event, newValue) => {
-                                        setStudent(newValue);
+                                        setCourse(newValue);
                                     }}
                                     renderOption={(props, option) => (
                                         <Box component="li" {...props} key={option._id}>
-                                            {option.name}
+                                            {option.title}
                                         </Box>
                                     )}
-                                    renderInput={(params) => <TextField {...params} label="Select the Student" />}
+                                    renderInput={(params) => <TextField {...params} label="Select the Course" />}
                                 />
                             </Grid>
                         </DialogContent>
@@ -57,9 +56,9 @@ const CourseEnroll = (props) => {
                             <Button onClick={handleEnroll()}>Close</Button>
                         </DialogActions>
                     </Dialog>
-                // </>
+                </>
             }
         </div>
     )
 }
-export default CourseEnroll
+export default StudentEnroll

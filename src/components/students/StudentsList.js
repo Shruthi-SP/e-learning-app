@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
+import { Link } from "react-router-dom";
 import { asyncDeleteStudent, asyncGetAllStudents } from "../../actions/studentsAction"
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -8,10 +9,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Dialog, DialogActions, DialogContent, IconButton, Typography, Button } from '@mui/material';
+import { Dialog, DialogActions, DialogContent, IconButton, Typography, Button, Grid } from '@mui/material';
 import { Delete, Edit, RemoveRedEyeOutlined } from "@mui/icons-material";
 import ModalView from "./ModalView";
 import StudentEdit from "./StudentEdit";
+import StudentShowPage from "./StudentShowPage";
 
 const StudentsList = (props) => {
 
@@ -64,7 +66,7 @@ const StudentsList = (props) => {
   }
 
   const rows = students.map(ele => {
-    return createData(ele._id, ele.name, <IconButton variant="outlined" color="success" size="small" onClick={(e) => { handleView(e, ele) }} ><RemoveRedEyeOutlined /></IconButton>, <IconButton variant="outlined" color="primary" size="small" onClick={(e) => { handleEdit(e, ele) }}><Edit /></IconButton>, <IconButton variant="outlined" color="error" size="small" onClick={(e) => { handleRemove(e, ele) }}><Delete /></IconButton>)
+    return createData(ele._id, ele.name, <Link style={{ color:'green' }} to={`/admin/students/${ele._id}`}><RemoveRedEyeOutlined /></Link>, <IconButton variant="outlined" color="primary" size="small" onClick={(e) => { handleEdit(e, ele) }}><Edit /></IconButton>, <IconButton variant="outlined" color="error" size="small" onClick={(e) => { handleRemove(e, ele) }}><Delete /></IconButton>)
   })
   function BasicTable() {
     return (
@@ -96,13 +98,20 @@ const StudentsList = (props) => {
   return (
     <div>
       {students.length > 0 && <>
+        <Grid container direction="row" sx={{ mt: 1, mb: 1 }}>
+          <Grid item xs sx={{ display: "flex", justifyContent: "flex-start", pt: 1 }}><Typography variant='h5'>Students - {students.length}</Typography></Grid>
+
+          <Grid item xs sx={{ display: "flex", justifyContent: "flex-end" }}>
+            <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '22px' }} to={`/admin/create-student`}>Add Student</Link>
+          </Grid>
+        </Grid>
         <h1>Students - {students.length}</h1>
         <BasicTable />
-        {view && <ModalView id={id} view={view} handleView={handleView} />}
+        {/* {view && <ModalView id={id} view={view} handleView={handleView} />} */}
         {edit && <StudentEdit id={id} edit={edit} handleEdit={handleEdit} />}
         {remove && <Dialog open={remove} onClose={handleClose}>
           <DialogContent>Are you sure want to delete?</DialogContent>
-          <DialogActions><Button onClick={(e)=>{handleYes(e, obj)}}>Yes</Button><Button onClick={handleClose}>No</Button></DialogActions>
+          <DialogActions><Button onClick={(e) => { handleYes(e, obj) }}>Yes</Button><Button onClick={handleClose}>No</Button></DialogActions>
         </Dialog>}
       </>}
     </div>

@@ -18,6 +18,18 @@ const StudentAccount = (props) => {
         dispatch(asyncGetMyCourses(getResult))
     }, [])
 
+    const courses = useSelector(state=>{
+        return state.courses
+    })
+
+    const getCourseName = (id) => {
+        if(courses.length > 0){
+            const course = courses.find(ele => ele._id === id)
+            return course.name 
+        }
+        else return 'course unavailable'
+    }
+
     return (
         <div>
             {
@@ -27,7 +39,12 @@ const StudentAccount = (props) => {
                     <p>ID: <b>{student._id}</b></p>
                     <p>Email: <b>{student.email}</b></p>
                     <p>Role: <b>{student.role}</b></p>
-                    <p>Number of Courses enrolled: <b>{student.courses.length}</b></p>
+                    <p style={{marginBottom:'0px'}}>Courses enrolled:</p>
+                    <ol style={{marginBottom:'0px'}}>
+                        {student.courses.map(ele=>{
+                            return <li key={ele._id}><b>{getCourseName(ele.course)}</b></li>
+                        })}
+                    </ol>
                     <p>CreatedBy: <b>{student.user}</b></p>
                 </>
             }

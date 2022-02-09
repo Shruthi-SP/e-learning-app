@@ -207,10 +207,11 @@ export const asyncGetMyCourses = (getResult) => {
     }
 }
 export const asyncEnrollCourseAdmin = (courseId, studentId, getResult) => {
+    console.log(`/courses/enroll?courseId=${courseId}&studentId=${studentId}`)
     return(dispatch) => {
-        axios.patch(`/courses/enroll?courseId=${courseId}&studentId=${studentId}`, {
+        axios.patch(`/courses/enroll?courseId=${courseId}&studentId=${studentId}`, {},  {
             headers: {
-                Authorization: `${localStorage.getItem('token')}`
+                Authorization: localStorage.getItem('token')
             }
         })
             .then((response) => {
@@ -230,7 +231,7 @@ export const asyncEnrollCourseAdmin = (courseId, studentId, getResult) => {
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
-                        text: 'Enrolled to the course successfully',
+                        text: typeof(result)==='object'? 'Enrolled to the course successfully' : result,
                         footer: ''
                     })   
                 }
@@ -247,14 +248,16 @@ export const asyncEnrollCourseAdmin = (courseId, studentId, getResult) => {
     }
 }
 export const asyncUnenrollCourseAdmin = (courseId, studentId, getResult) => {
+    console.log('async uneroll by admin', courseId, studentId)
     return(dispatch) => {
-        axios.patch(`/courses/unenroll?courseId=${courseId}&studentId=${studentId}`, {
+        axios.patch(`courses/unenroll?courseId=${courseId}&studentId=${studentId}`, {}, {
             headers: {
                 Authorization: `${localStorage.getItem('token')}`
             }
         })
             .then((response) => {
                 const result = response.data
+                console.log('res=', result)
                 if (result.hasOwnProperty('errors')) {
                     Swal.fire({
                         icon: 'error',
@@ -269,7 +272,7 @@ export const asyncUnenrollCourseAdmin = (courseId, studentId, getResult) => {
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
-                        text: 'Unenrolled from the course',
+                        text: typeof(result)==='object'? 'Unenrolled from the course successfully' : result,
                         footer: ''
                     })   
                 }
@@ -286,7 +289,7 @@ export const asyncUnenrollCourseAdmin = (courseId, studentId, getResult) => {
 }
 export const asyncEnrollCourseStudent = (courseId, getResult) => {
     return(dispatch) => {
-        axios.patch(`/courses/enroll?courseId=${courseId}`, {
+        axios.patch(`/courses/enroll?courseId=${courseId}`, {}, {
             headers: {
                 Authorization: `${localStorage.getItem('token')}`
             }
@@ -307,7 +310,7 @@ export const asyncEnrollCourseStudent = (courseId, getResult) => {
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
-                        text: 'Unenrolled from the course',
+                        text: typeof(result)==='object'? 'Enrolled to the course successfully' : result,
                         footer: ''
                     })   
                 }
@@ -324,7 +327,7 @@ export const asyncEnrollCourseStudent = (courseId, getResult) => {
 }
 export const asyncUnenrollCourseStudent = (courseId, getResult) => {
     return(dispatch) => {
-        axios.patch(`/courses/unenroll?courseId=${courseId}`, {
+        axios.patch(`/courses/unenroll?courseId=${courseId}`, {}, {
             headers: {
                 Authorization: `${localStorage.getItem('token')}`
             }
@@ -345,7 +348,7 @@ export const asyncUnenrollCourseStudent = (courseId, getResult) => {
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',
-                        text: 'Unenrolled from the course',
+                        text: typeof(result)==='object'? 'Unenrolled from the course' : result,
                         footer: ''
                     })   
                 }
