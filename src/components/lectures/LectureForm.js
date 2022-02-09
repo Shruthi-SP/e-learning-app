@@ -1,16 +1,10 @@
 import { useState } from "react"
-import LocalizationProvider from '@material-ui/lab/LocalizationProvider';
-import DatePicker from '@material-ui/lab/DatePicker';
-import { TextField, Button, Grid } from "@mui/material"
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
+import { Link } from "react-router-dom";
+import { TextField, Button } from "@mui/material"
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select'
-import AdapterDateFns from '@material-ui/lab/AdapterDateFns'
 
 const LectureForm = (props) => {
     const { courseId, _id, title: editTitle, description: editDescription, assetType: editAssetType, assetUrl: editAssetUrl, formSubmission, handleClose, edit } = props
@@ -64,6 +58,10 @@ const LectureForm = (props) => {
         }
     }
 
+    const handleCancel = () => {
+        props.history.push(`/courses/${courseId}/lectures`)
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
         runValidation()
@@ -85,10 +83,10 @@ const LectureForm = (props) => {
         <form onSubmit={handleSubmit}>
 
             <TextField label='Enter lecture title' variant='outlined' type='text' name='title' value={title} onChange={handleChange} ></TextField> <br />
-            {formErr.title && <span style={{ color: 'red' }}>{formErr.title}</span>}<br /><br/>
+            {formErr.title && <span style={{ color: 'red' }}>{formErr.title}</span>}<br />
 
             <TextField label='Enter decription' variant='outlined' type='text' name='description' value={description} onChange={handleChange}></TextField><br />
-            {formErr.description && <span style={{ color: 'red' }}>{formErr.description}</span>}<br /><br/>
+            {formErr.description && <span style={{ color: 'red' }}>{formErr.description}</span>}<br/>
 
             <FormControl sx={{ mb: 3, minWidth: 223 }}>
                 <InputLabel>Asset type</InputLabel>
@@ -111,10 +109,8 @@ const LectureForm = (props) => {
             </FormControl> <br />
             <TextField label='Enter asset url' variant='outlined' type='text' name='assetUrl' value={assetUrl} onChange={handleChange}></TextField><br />
             {formErr.assetUrl && <span style={{ color: 'red' }}>{formErr.assetUrl}</span>}<br />
-            <Button sx={{ m: 1 }} type="submit" variant="contained" color="primary" size="small">Submit</Button>
-            {edit && <Button sx={{ m: 1 }} variant="contained" color="primary" size="small" onClick={() => { handleClose() }}>Cancel</Button>}
-
-
+            <Button sx={{ m: 1 }} type="submit" variant="contained" color="primary" size="small">Submit</Button>           
+            <Button sx={{ m: 1 }} variant="contained" color="primary" size="small" onClick={() => { edit ? handleClose() : handleCancel() }}>Cancel</Button>
         </form>
     </div>
 }
