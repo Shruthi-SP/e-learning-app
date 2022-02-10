@@ -72,7 +72,7 @@ const StudentsList = (props) => {
     return (
       <TableContainer component={Paper}>
         <Typography variant='h6'>{props.heading}</Typography>
-        <Table sx={{ maxWidth: 850 }}>
+        <Table sx={{ maxWidth: 350 }} size="small" >
           <TableHead>
             <TableRow>
               <TableCell >Student Name</TableCell>

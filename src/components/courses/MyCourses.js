@@ -15,6 +15,7 @@ const MyCourses = (props) => {
     })
 
     const [myCourses, setMyCourses] = useState({})
+    const [enrolled, setEnrolled] = useState(true)
 
     const getResult = (arr) => {
         console.log(arr)
@@ -24,7 +25,11 @@ const MyCourses = (props) => {
     useEffect(() => {
         dispatch(asyncGetMyCourses(getResult))
         dispatch(asyncGetAllCourses())
-    }, []) 
+    }, [enrolled]) 
+
+    const handleEnrolled = () => {
+        setEnrolled(!enrolled)
+    }
 
     return (
         <div>
@@ -44,7 +49,7 @@ const MyCourses = (props) => {
                         {
                             myCourses.map(ele => {
                                 return <Grid item key={ele._id} xs={12} sm={6} md={4} >
-                                    <CourseCard course={ele} enrolled={true} />
+                                    <CourseCard course={ele} enrolled={enrolled} handleEnrolled={handleEnrolled} />
                                 </Grid>
                             })
                         }

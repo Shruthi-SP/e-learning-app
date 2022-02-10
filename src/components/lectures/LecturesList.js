@@ -1,5 +1,5 @@
 import { Grid, Typography, Button, IconButton, Tooltip } from "@mui/material"
-import { KeyboardDoubleArrowLeft, Delete, Edit, AddTask } from "@mui/icons-material";
+import { Delete, Edit, AddTask, FeedOutlined } from "@mui/icons-material";
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom";
@@ -44,7 +44,7 @@ const LecturesList = (props) => {
                     {(Object.keys(user).length > 0 && user.role === 'admin') && <>
                         <Link style={{ margin: '5px', marginTop:'10px', textDecoration: 'none'}} to={`/courses/${courseId}/create`}><Tooltip title="Add lecture"><AddTask color="success" /></Tooltip></Link>
                     </>}
-                    <Link style={{ margin: '5px', marginTop:'10px', textDecoration: 'none' }} to={`/courses/${courseId}`}><Tooltip title="Back" ><KeyboardDoubleArrowLeft color="primary" /></Tooltip></Link>
+                    <Link style={{ margin: '5px', marginTop:'10px', textDecoration: 'none' }} to={`/courses/${courseId}`}><Tooltip title="Course Details" ><FeedOutlined color="primary" /></Tooltip></Link>
                 </Grid>
             </Grid>
             {lectures.length > 0 ? <Grid container>

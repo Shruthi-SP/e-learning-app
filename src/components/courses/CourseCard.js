@@ -8,7 +8,7 @@ import { asyncDeleteCourse, asyncEnrollCourseStudent, asyncUnenrollCourseStudent
 import CourseEnroll from './CourseEnroll';
 
 function CourseCard(props) {
-    const { course, enrolled } = props
+    const { course, enrolled, handleEnrolled } = props
     const user = useSelector(state => {
         return state.user
     })
@@ -35,6 +35,9 @@ function CourseCard(props) {
     
     const getResult = (obj) => {
         console.log(obj)
+        if(enrolled){
+            handleEnrolled()
+        }
     }
     const handleEnroll = () => {
         console.log('enrolling')
@@ -64,7 +67,7 @@ function CourseCard(props) {
                     <Typography variant="body2" color="text.secondary">{course.description}</Typography>
                 </CardContent>
                 <CardActions>
-                    <Link style={{ textDecoration: 'none', color: 'orangered', fontSize: '0.8800rem', padding: '4px 5px', marginBottom: '2px' }} to={user.role==='admin' ? `/courses/${course._id}`: `/courses/${course._id}/lectures` }>VIEW</Link>
+                    <Link style={{ textDecoration: 'none', color: 'orangered', fontSize: '0.8800rem', padding: '4px 5px', marginBottom: '2px' }} to={`/courses/${course._id}`}>VIEW</Link>
                     {
                         user.role === 'admin' ? <>
                             <Button color='primary' size="small" onClick={handleEdit}>Edit</Button>

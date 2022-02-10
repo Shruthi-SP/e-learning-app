@@ -59,7 +59,6 @@ const StudentShowPage = (props) => {
             {
                 Object.keys(student).length > 0 && <>
                     <Typography>Name: <b>{student.name}</b></Typography>
-                    <Typography>ID: <b>{student._id}</b></Typography>
                     <Typography>Email: <b>{student.email}</b></Typography>
                     <Typography>Role: <b>{student.role}</b></Typography>
                     <Typography sx={{ mb: 0 }}>Courses enrolled:</Typography>
@@ -68,16 +67,16 @@ const StudentShowPage = (props) => {
                             <ol style={{ margin: '0px' }}>
                                 {student.courses.map(ele => {
                                     return <li key={ele._id}>
-                                        <b>{getCourseName(ele.course)}</b>
+                                        <Link style={{textDecoration:'none', color:'#2B547E'}} to={`/courses/${ele.course}`}><b>{getCourseName(ele.course)}</b></Link>
                                         <Button variant="outlined" size="small" sx={{ ml: 1 }} onClick={(e) => { handleUnenroll(e, ele.course) }}>unenroll</Button>
                                     </li>
                                 })}
                             </ol> : <b>Not enrolled to any course</b>
                     }
-                    <Typography sx={{ m: 1 }}>CreatedBy: <b>{user.username}</b></Typography>
+                    <Typography>CreatedBy: <b>{user.username}</b></Typography>
                 </>
             }
-            <Button variant="outlined" size="small" sx={{ ml: 1 }} onClick={handleEnroll}>enroll</Button>
+            <Button variant="outlined" size="small" onClick={()=>{setEnroll(!enroll)}}>enroll</Button>
             {enroll && <StudentEnroll student={student} enroll={enroll} handleEnroll={handleEnroll} />}
         </div>
     )

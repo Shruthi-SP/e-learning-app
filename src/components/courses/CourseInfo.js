@@ -1,3 +1,5 @@
+import { Tooltip } from "@material-ui/core"
+import { SummarizeOutlined } from "@mui/icons-material"
 import { Button, Typography, Grid } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
@@ -67,9 +69,10 @@ const CourseInfo = (props) => {
                         <Grid item xs sx={{ display: "flex", justifyContent: "flex-start", pt:1}}><Typography variant='h5'>Course - <b>{course.name}</b></Typography></Grid>
 
                         <Grid item xs sx={{ display: "flex", justifyContent: "flex-end" }}>
-                            {(Object.keys(user).length > 0) && <> 
-                            {user.role==='admin' && <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '22px' }} to={`/courses/${courseId}/lectures`}>Lectures</Link>} 
-                            </>}
+                            {/* {(Object.keys(user).length > 0) && <>  */}
+                            <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '22px' }} to={`/courses/${courseId}/lectures`}>Lectures</Link> 
+                            <Link style={{ margin: '5px', marginTop:'10px', textDecoration: 'none' }} to={`/courses`} ><Tooltip title="All Courses" ><SummarizeOutlined color="primary" /></Tooltip></Link>
+                            {/* </>} */}
                         </Grid>
                     </Grid>
                     <Typography variant="body" >Description: <b>{course.description}</b></Typography><br />
@@ -80,21 +83,20 @@ const CourseInfo = (props) => {
                     {(course.students && user.role === 'admin') && <>
                         {<Typography variant="body" >Students Enrolled: {course.students.length > 0 ? <>
                             {course.students.map(ele => {
-                                return <li key={ele.student}><b>{getStudentsName(ele.student)}</b><Button variant="outlined" size="small" sx={{ml:1}} onClick={(e)=>{handleUnenroll(e, ele.student)}}>unenroll</Button></li>
+                                return <li key={ele.student}>
+                                    <Link style={{textDecoration:'none', color:'#2B547E'}} to={`/admin/students/${ele.student}`}><b>{getStudentsName(ele.student)}</b></Link>
+                                    <Button variant="outlined" size="small" sx={{ml:1}} onClick={(e)=>{handleUnenroll(e, ele.student)}}>unenroll</Button></li>
                             })}</> : <>
                             <Typography variant="body"><b>No students enrolled</b></Typography><br/></>}</Typography>
                         }
                     </>}
                     <Typography variant="body" >Validity: <b>{course.validity}</b></Typography><br />
-                    <Typography variant="body" >ID: <b>{course._id}</b></Typography><br />
                     <Typography variant="body" >Created At: <b>{course.createdAt.slice(0, 10).split('-').reverse().join('-')}</b></Typography><br />
                     <Typography variant="body" >Updated At: <b>{course.updatedAt.slice(0, 10).split('-').reverse().join('-')}</b></Typography><br />
                     {(Object.keys(user).length > 0 && user.role === 'admin') && <>
-                    <Typography variant="body" >Created By: <b>{user.username}</b></Typography><br />
-                    <Button variant="outlined" size="small" sx={{m:1, ml:0}} onClick={handleEnroll} >enroll</Button> 
+                    <Typography variant="body" >Created By: <b>{user.username}</b></Typography><br /> 
                     </>}
-                    {user.role==='student' && <br />}
-                    <Link style={{ textDecoration: 'none', color: 'blueviolet', fontSize: '0.8800rem', padding: '3px 10px', paddingBottom:'6px',marginTop:'5px', marginBottom: '2px', border:'1px solid blueviolet', borderRadius:'5px' }} to={`/courses`} >BACK</Link> 
+                    <Button variant="outlined" size="small" sx={{m:1, ml:0}} onClick={handleEnroll} >enroll</Button>
                     {enroll && <CourseEnroll course={course} enroll={enroll} handleEnroll={handleEnroll} />}                             
                 </>
             }

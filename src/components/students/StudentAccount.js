@@ -36,16 +36,16 @@ const StudentAccount = (props) => {
                 Object.keys(student).length > 0 && <>
                     <h2>{student.name} Info</h2>
                     <p>Name: <b>{student.name}</b></p>
-                    <p>ID: <b>{student._id}</b></p>
                     <p>Email: <b>{student.email}</b></p>
-                    <p>Role: <b>{student.role}</b></p>
                     <p style={{marginBottom:'0px'}}>Courses enrolled:</p>
                     <ol style={{marginBottom:'0px'}}>
                         {student.courses.map(ele=>{
-                            return <li key={ele._id}><b>{getCourseName(ele.course)}</b></li>
+                            return <li key={ele._id}>
+                                <b>{getCourseName(ele.course)}</b>
+                            </li>
                         })}
                     </ol>
-                    <p>CreatedBy: <b>{student.user}</b></p>
+                    <p>Role: <b>{student.role}</b></p>
                 </>
             }
         </div>
