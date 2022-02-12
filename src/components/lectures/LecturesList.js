@@ -4,8 +4,10 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom";
 import { asyncAllLectures } from "../../actions/lecturesAction"
+import LectureEdit from "./LectureEdit";
 
 const LecturesList = (props) => {
+    console.log('lec list props', props)
     const courseId = props.match.params.id
 
     const [edit, setEdit] = useState(false)
@@ -22,10 +24,12 @@ const LecturesList = (props) => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(asyncAllLectures(courseId))
-    }, [courseId])
+    }, [courseId, edit])
 
     const handleEdit = (e, object) => {
         console.log('editing')
+        setEdit(!edit)
+        setObj(object)
     }
     const handleRemove = (e, object) => {
         console.log('removing')
@@ -61,6 +65,7 @@ const LecturesList = (props) => {
                         })}
                     </ol>
                 </Grid>
+                {edit && <LectureEdit courseId={courseId} lecture={obj} edit={edit} handleEdit={handleEdit} />}
                 <Grid item sm={12} md={4}></Grid>
                 <Grid item sm={12} md={4}></Grid>
             </Grid> : <Grid>

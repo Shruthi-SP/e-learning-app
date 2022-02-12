@@ -103,6 +103,7 @@ export const asyncGetLecture = (courseId, lectureId, getResult) => {
     }
 }
 export const asyncUpdateLecture = (courseId, lectureId, formData) => {
+    console.log('async update', courseId, lectureId, formData)
     return (dispatch) => {
         axios.put(`/courses/${courseId}/lectures/${lectureId}`, formData, {
             headers: {
@@ -111,6 +112,7 @@ export const asyncUpdateLecture = (courseId, lectureId, formData) => {
         })
             .then((response) => {
                 const result = response.data
+                console.log('update res', result)
                 if (result.hasOwnProperty('errors')) {
                     Swal.fire({
                         icon: 'error',
@@ -121,10 +123,11 @@ export const asyncUpdateLecture = (courseId, lectureId, formData) => {
                 }
                 else {
                     dispatch(updateLecture(result))
+                    console.log('updated lec', result)
                     Swal.fire({
                         icon: 'success',
                         title: 'Updated',
-                        text: 'Course updated successfully',
+                        text: 'Lecture updated successfully',
                         footer: ''
                     })                   
                 }

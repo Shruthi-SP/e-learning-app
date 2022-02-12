@@ -7,7 +7,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select'
 
 const LectureForm = (props) => {
-    const { courseId, _id, title: editTitle, description: editDescription, assetType: editAssetType, assetUrl: editAssetUrl, formSubmission, handleClose, edit } = props
+    const { courseId, _id, title: editTitle, description: editDescription, assetType: editAssetType, assetURL: editAssetUrl, formSubmission, handleClose, edit } = props
 
     console.log('editing', edit)
 
