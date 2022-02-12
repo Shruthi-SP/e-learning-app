@@ -52,7 +52,7 @@ const LecturesList = (props) => {
                     <ol>
                         {lectures.map(ele => {
                             return <li key={ele._id}>
-                                <Link style={{ textDecoration: 'none', fontSize: '18px', color: 'black' }} to={`#`} >{ele.title}</Link>
+                                <Link style={{ textDecoration: 'none', fontSize: '18px', color: 'black' }} to={`/courses/${courseId}/lectures/${ele._id}`} >{ele.title}</Link>
                                 {user.role === 'admin' && <>
                                     <IconButton variant="outlined" color="primary" size="small" onClick={(e) => { handleEdit(e, ele) }}><Edit /></IconButton>
                                     <IconButton variant="outlined" color="error" size="small" onClick={(e) => { handleRemove(e, ele) }}><Delete /></IconButton>

@@ -176,6 +176,119 @@ export const asyncDeleteLecture = (courseId, lectureId) => {
             })
     }
 }
+export const asyncAddComment = (lectureId, body, reset) => {
+    return (dispatch) => {
+        axios.patch(`/lectures/${lectureId}/comments`, body, {
+            headers : {
+                Authorization : localStorage.getItem('token')
+            }
+        })
+            .then((response) => {
+                const result = response.data
+                console.log('comment res', result)
+                if(result.hasOwnProperty('errors')){
+                    console.log('then err res', result.errors)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: result.errors,
+                        footer: ''
+                    })
+                }
+                else {
+                    dispatch(updateLecture(result))
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Added',
+                        text: 'Your comment has been recorded',
+                        footer: ''
+                    })
+                    reset()
+                }
+            })
+            .catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.message,
+                    footer: ''
+                })
+            })
+    }
+}
+export const asyncUncomment = (lectureId, commentId, reset) => {
+    return (dispatch) => {
+        axios.patch(`/lectures/${lectureId}/uncomment/${commentId}`, {}, {
+            headers : {
+                Authorization : localStorage.getItem('token')
+            }
+        })
+            .then((response) => {
+                const result = response.data
+                console.log('comment res', result)
+                if(result.hasOwnProperty('errors')){
+                    console.log('then err res', result.errors)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: result.errors,
+                        footer: ''
+                    })
+                }
+                else {
+                    dispatch(updateLecture(result))
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Removed',
+                        text: 'Comment has been removed',
+                        footer: ''
+                    })
+                    reset() 
+                }
+            })
+            .catch((err) => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: err.message,
+                    footer: ''
+                })
+            })
+    }
+}
+export const asyncMarkCompleted = (lectureId, studentId) => {
+    return (dispatch) => {
+        axios.patch(`/lectures/${lectureId}/complete?studentId=${studentId}`, {}, {
+            headers: {
+                Authorization : localStorage.getItem('token')
+            }
+        })
+            .then((response)=>{
+                const result = response.data
+                console.log('mark completed res', result)
+                if(result.hasOwnProperty('errors')){
+                    console.log('then err res', result.errors)
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: result.errors,
+                        footer: ''
+                    })
+                }
+                else {
+                    if(typeof(result)==='object'){
+                        dispatch(updateLecture(result))
+                    }                    
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Completed Lecture',
+                        text: typeof(result)==='string' && 'Already marked as complete',
+                        footer: ''
+                    }) 
+                }
+            })
+    }
+}
 export const getAllLectures = (lectures) => {
     return {type:'GET_ALL_LECTURES', payload: lectures}
 }

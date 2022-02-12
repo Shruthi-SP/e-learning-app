@@ -46,9 +46,7 @@ const CourseInfo = (props) => {
         setCourse(obj)
     }
     const handleEnroll = () => {
-        console.log('enrolling')
         if (user.role === 'admin') {
-            console.log('by admin', enroll)
             setEnroll(!enroll)
         }
         else {
@@ -69,10 +67,10 @@ const CourseInfo = (props) => {
                         <Grid item xs sx={{ display: "flex", justifyContent: "flex-start", pt:1}}><Typography variant='h5'>Course - <b>{course.name}</b></Typography></Grid>
 
                         <Grid item xs sx={{ display: "flex", justifyContent: "flex-end" }}>
-                            {/* {(Object.keys(user).length > 0) && <>  */}
+                            
                             <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '22px' }} to={`/courses/${courseId}/lectures`}>Lectures</Link> 
                             <Link style={{ margin: '5px', marginTop:'10px', textDecoration: 'none' }} to={`/courses`} ><Tooltip title="All Courses" ><SummarizeOutlined color="primary" /></Tooltip></Link>
-                            {/* </>} */}
+                            
                         </Grid>
                     </Grid>
                     <Typography variant="body" >Description: <b>{course.description}</b></Typography><br />
