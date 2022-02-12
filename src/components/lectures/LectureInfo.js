@@ -165,7 +165,7 @@ const LectureInfo = (props) => {
 
                             {lecture.assetType === 'pdf' && <object data={lecture.assetURL} width="600" height="300" ></object>}
 
-                            {lecture.assetType === 'text' && <object data={lecture.assetURL} width="600" height="300"></object>}
+                            {lecture.assetType === 'text' && <object data={lecture.assetURL} width="600" height="150"></object>}
 
                             {lecture.assetType === 'img' && <img src={lecture.assetURL}  width="500" height="300" />}
                             <br />
