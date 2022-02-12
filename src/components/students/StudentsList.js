@@ -11,14 +11,12 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Dialog, DialogActions, DialogContent, IconButton, Typography, Button, Grid } from '@mui/material';
 import { Delete, Edit, RemoveRedEyeOutlined } from "@mui/icons-material";
-import ModalView from "./ModalView";
 import StudentEdit from "./StudentEdit";
-import StudentShowPage from "./StudentShowPage";
 
 const StudentsList = (props) => {
 
   const [students, setStudents] = useState([])
-  const [view, setView] = useState(false)
+  //const [view, setView] = useState(false)
   const [edit, setEdit] = useState(false)
   const [id, setId] = useState('')
   const [remove, setRemove] = useState(false)
@@ -39,10 +37,10 @@ const StudentsList = (props) => {
     }
   }, [allStudents])
 
-  const handleView = (e, ele) => {
-    view ? setId('') : setId(ele._id)
-    setView(!view)
-  }
+  // const handleView = (e, ele) => {
+  //   view ? setId('') : setId(ele._id)
+  //   setView(!view)
+  // }
   const handleEdit = (e, ele) => {
     edit ? setId('') : setId(ele._id)
     setEdit(!edit)

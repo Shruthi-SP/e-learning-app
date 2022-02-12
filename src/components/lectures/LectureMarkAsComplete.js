@@ -1,5 +1,5 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Grid, Autocomplete, TextField, Box } from "@mui/material"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { asyncMarkCompleted } from "../../actions/lecturesAction"
 
@@ -11,10 +11,6 @@ const LectureMarkAsComplete = (props) => {
 
     const [student, setStudent] = useState(null)
     console.log('selected student', student)
-
-    const getResult = (obj) => {
-        console.log(obj)
-    }
 
     const defaultProps = {
         options: students,

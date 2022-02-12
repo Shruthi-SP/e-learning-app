@@ -55,7 +55,7 @@ export const asyncCreateLecture = (courseId, formData, redirect) => {
                     Swal.fire({
                         icon: 'success',
                         title: 'Added',
-                        text: 'Course Added successfully',
+                        text: 'Lecture Added successfully',
                         footer: ''
                     })
                     redirect()

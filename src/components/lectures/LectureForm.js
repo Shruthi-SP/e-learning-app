@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { Link } from "react-router-dom";
 import { TextField, Button } from "@mui/material"
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -7,7 +6,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select'
 
 const LectureForm = (props) => {
-    const { courseId, _id, title: editTitle, description: editDescription, assetType: editAssetType, assetURL: editAssetUrl, formSubmission, handleClose, edit } = props
+    const { courseId, title: editTitle, description: editDescription, assetType: editAssetType, assetURL: editAssetUrl, formSubmission, handleClose, edit } = props
 
     console.log('editing', edit)
 

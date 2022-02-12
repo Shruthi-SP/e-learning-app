@@ -23,7 +23,7 @@ import MyCourses from "./courses/MyCourses"
 import LecturesList from "./lectures/LecturesList"
 import AddLecture from "./lectures/AddLecture"
 import StudentShowPage from "./students/StudentShowPage"
-import LectureInfoPlay from "./lectures/LectureInfoPlay"
+import LectureInfo from "./lectures/LectureInfo"
 
 const Navbar = (props) => {
     const [userLoggedIn, setUserLoggedIn] = useState(false)
@@ -153,12 +153,12 @@ const Navbar = (props) => {
             <PrivateRoute path='/courses' component={CoursesList} />
             <PrivateRoute path='/courses/:id' component={CourseInfo} />
             <PrivateRoute path='/courses/:id/lectures' component={LecturesList} />
-            <PrivateRoute path='/courses/:courseId/lectures/:id' component={LectureInfoPlay} />
+            <PrivateRoute path='/courses/:courseId/lectures/:id' component={LectureInfo} />
             <PrivateRoute path='/courses/:id/create' component={AddLecture} />
             <PrivateRoute path='/mycourses' component={MyCourses} />
             <PrivateRoute path='/mycourses/:id' component={CourseInfo} />
             <PrivateRoute path='/mycourses/:id/lectures' component={LecturesList} />
-            <PrivateRoute path='/mycourses/:courseId/lectures/:id' component={LectureInfoPlay} />
+            <PrivateRoute path='/mycourses/:courseId/lectures/:id' component={LectureInfo} />
             <PrivateRoute path='/courses-create' component={AddCourse} />
         </div>
     )

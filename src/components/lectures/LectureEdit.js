@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material"
 import { useDispatch } from "react-redux"
 import { Typography } from "@mui/material"
-import { asyncGetLecture, asyncUpdateLecture } from "../../actions/lecturesAction"
+import { asyncUpdateLecture } from "../../actions/lecturesAction"
 import LectureForm from "./LectureForm"
 
 const LectureEdit = (props) => {
