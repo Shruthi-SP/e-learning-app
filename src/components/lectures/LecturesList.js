@@ -1,9 +1,9 @@
-import { Grid, Typography, Button, IconButton, Tooltip } from "@mui/material"
+import { Grid, Typography, Button, IconButton, Tooltip, Dialog, DialogActions, DialogContent } from "@mui/material"
 import { Delete, Edit, AddTask, FeedOutlined } from "@mui/icons-material";
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom";
-import { asyncAllLectures } from "../../actions/lecturesAction"
+import { asyncAllLectures, asyncDeleteLecture } from "../../actions/lecturesAction"
 import LectureEdit from "./LectureEdit";
 
 const LecturesList = (props) => {
@@ -24,7 +24,7 @@ const LecturesList = (props) => {
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(asyncAllLectures(courseId))
-    }, [courseId, edit])
+    }, [courseId, edit, remove])
 
     const handleEdit = (e, object) => {
         console.log('editing')
@@ -33,9 +33,18 @@ const LecturesList = (props) => {
     }
     const handleRemove = (e, object) => {
         console.log('removing')
+        setObj(object)
+        setRemove(true)
     }
-    const handleYes = (e, object) => {
-        console.log('dispaching delete')
+    const reset = () => {
+        setObj({})
+        setRemove(false)
+    }
+    const handleYes = (e, id) => {
+        dispatch(asyncDeleteLecture(courseId, id, reset))
+    }
+    const handleClose = () => {
+        setRemove(false)
     }
 
     return (
@@ -66,6 +75,10 @@ const LecturesList = (props) => {
                     </ol>
                 </Grid>
                 {edit && <LectureEdit courseId={courseId} lecture={obj} edit={edit} handleEdit={handleEdit} />}
+                {remove && <Dialog open={remove} onClose={handleClose}>
+                <DialogContent>Are you sure want to delete?</DialogContent>
+                <DialogActions><Button onClick={(e) => { handleYes(e, obj._id) }}>Yes</Button><Button onClick={handleClose}>No</Button></DialogActions>
+            </Dialog>}
                 <Grid item sm={12} md={4}></Grid>
                 <Grid item sm={12} md={4}></Grid>
             </Grid> : <Grid>

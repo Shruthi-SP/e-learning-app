@@ -142,7 +142,7 @@ export const asyncUpdateLecture = (courseId, lectureId, formData) => {
             })
     }
 }
-export const asyncDeleteLecture = (courseId, lectureId) => {
+export const asyncDeleteLecture = (courseId, lectureId, reset) => {
     return (dispatch) => {
         axios.delete(`/courses/${courseId}/lectures/${lectureId}`, {
             headers: {
@@ -161,6 +161,7 @@ export const asyncDeleteLecture = (courseId, lectureId) => {
                 }
                 else {
                     dispatch(deleteLecture(result))
+                    reset()
                     Swal.fire({
                         icon: 'success',
                         title: 'Deleted',
