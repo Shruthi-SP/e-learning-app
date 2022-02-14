@@ -7,7 +7,6 @@ const EditAdmin = (props) => {
     const { user, handleUpdate } = props
     let {academy}= user
     let {name, website } = academy
-    console.log(name, website)
     const dispatch = useDispatch()
 
     const formSubmission = (formData) => {

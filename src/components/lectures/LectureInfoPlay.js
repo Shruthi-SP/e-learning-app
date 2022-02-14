@@ -25,11 +25,9 @@ const LectureInfo = (props) => {
     const [mark, setMark] = useState(false)
     const [comment, setComment] = useState('')
     const [toggle, setToggle] = useState(false)
-    console.log('lec info props, lecId, cid, user, lec', props, lectureId, courseId, user.role, lecture)
-
+    
     const getResult = (obj) => {
         if (Object.keys(obj).length > 0 && typeof (obj) === 'object') {
-            console.log('got lec info', obj)
             setLecture(obj)
         }
     }
@@ -53,11 +51,9 @@ const LectureInfo = (props) => {
 
     const handleMarkComplete = () => {
         if (user.role === 'admin') {
-            console.log('mark complete by admin')
             setMark(!mark)
         }
         else {
-            console.log('mark complete by student', lecture._id, user._id)
             dispatch(asyncMarkCompleted(lecture._id, user._id))
         }
     }
@@ -72,11 +68,9 @@ const LectureInfo = (props) => {
         const body = {
             body: comment
         }
-        console.log('posting commment')
         dispatch(asyncAddComment(lecture._id, body, reset))
     }
     const handleUnComment = (e, commentId) => {
-        console.log('uncommmentting')
         dispatch(asyncUncomment(lecture._id, commentId, reset))
     }
 

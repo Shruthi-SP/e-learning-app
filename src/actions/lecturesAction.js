@@ -41,7 +41,6 @@ export const asyncCreateLecture = (courseId, formData, redirect) => {
         })
             .then((response) => {
                 const result = response.data
-                console.log('async create',result)
                 if (result.hasOwnProperty('errors')) {
                     Swal.fire({
                         icon: 'error',
@@ -103,7 +102,6 @@ export const asyncGetLecture = (courseId, lectureId, getResult) => {
     }
 }
 export const asyncUpdateLecture = (courseId, lectureId, formData) => {
-    console.log('async update', courseId, lectureId, formData)
     return (dispatch) => {
         axios.put(`/courses/${courseId}/lectures/${lectureId}`, formData, {
             headers: {
@@ -112,7 +110,6 @@ export const asyncUpdateLecture = (courseId, lectureId, formData) => {
         })
             .then((response) => {
                 const result = response.data
-                console.log('update res', result)
                 if (result.hasOwnProperty('errors')) {
                     Swal.fire({
                         icon: 'error',
@@ -123,7 +120,6 @@ export const asyncUpdateLecture = (courseId, lectureId, formData) => {
                 }
                 else {
                     dispatch(updateLecture(result))
-                    console.log('updated lec', result)
                     Swal.fire({
                         icon: 'success',
                         title: 'Updated',
@@ -189,9 +185,7 @@ export const asyncAddComment = (lectureId, body, reset) => {
         })
             .then((response) => {
                 const result = response.data
-                console.log('comment res', result)
                 if(result.hasOwnProperty('errors')){
-                    console.log('then err res', result.errors)
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -229,9 +223,7 @@ export const asyncUncomment = (lectureId, commentId, reset) => {
         })
             .then((response) => {
                 const result = response.data
-                console.log('comment res', result)
                 if(result.hasOwnProperty('errors')){
-                    console.log('then err res', result.errors)
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -269,9 +261,7 @@ export const asyncMarkCompleted = (lectureId, studentId) => {
         })
             .then((response)=>{
                 const result = response.data
-                console.log('mark completed res', result)
                 if(result.hasOwnProperty('errors')){
-                    console.log('then err res', result.errors)
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',

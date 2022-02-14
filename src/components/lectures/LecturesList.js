@@ -7,7 +7,6 @@ import { asyncAllLectures, asyncDeleteLecture } from "../../actions/lecturesActi
 import LectureEdit from "./LectureEdit";
 
 const LecturesList = (props) => {
-    console.log('lec list props', props)
     const courseId = props.match.params.id
 
     const [edit, setEdit] = useState(false)
@@ -27,12 +26,10 @@ const LecturesList = (props) => {
     }, [courseId, edit, remove])
 
     const handleEdit = (e, object) => {
-        console.log('editing')
         setEdit(!edit)
         setObj(object)
     }
     const handleRemove = (e, object) => {
-        console.log('removing')
         setObj(object)
         setRemove(true)
     }

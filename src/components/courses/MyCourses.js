@@ -18,7 +18,6 @@ const MyCourses = (props) => {
     const [enrolled, setEnrolled] = useState(true)
 
     const getResult = (arr) => {
-        console.log(arr)
         setMyCourses(arr)
     }
     const dispatch = useDispatch()

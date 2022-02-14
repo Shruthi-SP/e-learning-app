@@ -34,13 +34,11 @@ function CourseCard(props) {
     }
     
     const getResult = (obj) => {
-        console.log(obj)
         if(enrolled){
             handleEnrolled()
         }
     }
     const handleEnroll = () => {
-        console.log('enrolling')
         if (user.role === 'admin') {
             setEnroll(!enroll)
         }
@@ -49,7 +47,6 @@ function CourseCard(props) {
         }
     }
     const handleUnenroll = () => {
-        console.log('unerolling')
         dispatch(asyncUnenrollCourseStudent(course._id, getResult))
     }
 

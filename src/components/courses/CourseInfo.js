@@ -42,7 +42,6 @@ const CourseInfo = (props) => {
         }
     }
     const getData = (obj) => {
-        console.log('getting enrolled/unenroll obj=',obj)
         setCourse(obj)
     }
     const handleEnroll = () => {
@@ -54,7 +53,6 @@ const CourseInfo = (props) => {
         }
     }
     const handleUnenroll = (e, studentId) => {
-        console.log('unerolling by admin', courseId, studentId)
         dispatch(asyncUnenrollCourseAdmin(courseId, studentId, getData))
     }
 

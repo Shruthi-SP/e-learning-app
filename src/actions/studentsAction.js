@@ -90,7 +90,6 @@ export const asyncLoginStudent = (formData, getId, redirect) => {
                     localStorage.setItem('token', result.token)
                     localStorage.setItem('role', 'Student')
                     let decoded = jwtDecode(result.token);
-                    console.log(decoded);
                     getId(decoded)
                     Swal.fire({
                         icon: 'success',
@@ -174,7 +173,6 @@ export const asyncUpdateStudent = (id, formData) => {
                 }
             })
             .catch((err) => {
-                console.log('inside catch')
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -194,7 +192,6 @@ export const asyncDeleteStudent = (id) => {
             .then((response) => {
                 const result = response.data
                 if (result.hasOwnProperty('errors')) {
-                    console.log('inside then err')
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -213,7 +210,6 @@ export const asyncDeleteStudent = (id) => {
                 }
             })
             .catch((err) => {
-                console.log('inside catch')
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',

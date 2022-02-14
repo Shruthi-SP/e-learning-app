@@ -15,8 +15,6 @@ import AdapterDateFns from '@material-ui/lab/AdapterDateFns'
 const CourseForm = (props) => {
     const { _id, name: editName, description: editDescription, duration: editDuration, category: editCategory, validity: editValidity, level: editLevel, author: editAuthor, releaseDate: editReleaseDate, formSubmission, handleClose, edit } = props
 
-    console.log('editing', edit)
-
     const [name, setName] = useState(editName ? editName : '')
     const [description, setDescription] = useState(editDescription ? editDescription : '')
     const [duration, setDuration] = useState(editDuration ? editDuration : '')

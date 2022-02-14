@@ -34,15 +34,12 @@ const Navbar = (props) => {
     useEffect(() => {
         if (localStorage.token) {
             const role = localStorage.getItem('role')
-            console.log('role', role)
             if(role==='Student'){
                 const id = jwtDecode(localStorage.getItem('token'))._id
-                console.log(login, localStorage.role, id)
                 dispatch(asyncGetStudent(id))
                 setLogin('Student')
             }
             else if(role==='Admin'){
-                console.log(login, localStorage.role)
                 dispatch(asyncGetUser())
                 dispatch(asyncGetAllStudents())
                 setLogin('Admin')
@@ -53,7 +50,7 @@ const Navbar = (props) => {
     const user = useSelector(state => {
         return state.user
     })
-    console.log('navbar', userLoggedIn, admin, user)
+
     useEffect(() => {
         if (Object.keys(user).length > 0) {
             setUserLoggedIn(true)
