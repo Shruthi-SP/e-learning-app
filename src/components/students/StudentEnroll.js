@@ -21,7 +21,6 @@ const StudentEnroll = (props) => {
     }
     const dispatch = useDispatch()
     const handleEnrollCourse = (e, cid, sid) => {
-        console.log('modal', cid, sid)
         dispatch(asyncEnrollCourseAdmin(cid, sid, getResult))
         handleEnroll()
     }

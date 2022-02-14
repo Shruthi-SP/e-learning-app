@@ -8,8 +8,6 @@ import Select from '@mui/material/Select'
 const LectureForm = (props) => {
     const { courseId, title: editTitle, description: editDescription, assetType: editAssetType, assetURL: editAssetUrl, formSubmission, handleClose, edit } = props
 
-    console.log('editing', edit)
-
     const [title, setTitle] = useState(editTitle ? editTitle : '')
     const [description, setDescription] = useState(editDescription ? editDescription : '')
     const [assetType, setAssetType] = useState(editAssetType ? editAssetType : '')

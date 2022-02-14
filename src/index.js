@@ -7,11 +7,6 @@ import configureStore from './store/configureStore';
 import { Provider } from 'react-redux';
 
 const store = configureStore()
-console.log('store=', store)
-console.log('state=', store.getState())
-store.subscribe(() => {
-  console.log('updated state=', store.getState())
-})
 
 ReactDOM.render(
   <BrowserRouter>

@@ -113,7 +113,6 @@ export const asyncUpdateUser = (formData) => {
         .then((response) => {
             const result = response.data
             if (result.hasOwnProperty('errors')) {
-                console.log('inside then err')
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -132,7 +131,6 @@ export const asyncUpdateUser = (formData) => {
             }
         })
         .catch((err) => {
-            console.log('inside catch')
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',

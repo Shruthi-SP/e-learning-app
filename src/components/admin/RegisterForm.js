@@ -6,7 +6,6 @@ import { TextField, Button } from "@mui/material"
 const RegisterForm = (props) => {
 
     const { _id, email: editEmail, username: editUsername, name: editName, website: editWebsite, formSubmission, handleClose } = props
-    console.log('editing', _id)
     const [email, setEmail] = useState(editEmail ? editEmail : '')
     const [password, setPassword] = useState('')
     const [username, setUsername] = useState(editUsername ? editUsername : '')

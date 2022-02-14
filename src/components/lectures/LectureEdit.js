@@ -6,12 +6,10 @@ import LectureForm from "./LectureForm"
 
 const LectureEdit = (props) => {
     const { courseId, lecture, edit, handleEdit } = props
-    console.log('lec edit props', props)
 
     const dispatch = useDispatch()
 
     const formSubmission = (courseId, formData, resetForm) => {
-        console.log(courseId, lecture._id, formData)
         dispatch(asyncUpdateLecture(courseId, lecture._id, formData))
         handleEdit()
     }

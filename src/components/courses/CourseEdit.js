@@ -20,7 +20,6 @@ const CourseEdit = (props) => {
     }, [id])
 
     const formSubmission = (formData) => {
-        console.log(course._id, formData)
         dispatch(asyncUpdateCourse(course._id, formData))
         handleEdit()
     }

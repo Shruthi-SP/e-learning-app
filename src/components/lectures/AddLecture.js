@@ -12,7 +12,6 @@ const AddLecture = (props) => {
     }
 
     const formSubmission = (courseId, formData) => {
-        console.log('formData add', formData)
         dispatch(asyncCreateLecture(courseId, formData, redirect))
     }
 

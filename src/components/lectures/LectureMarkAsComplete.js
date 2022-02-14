@@ -4,21 +4,19 @@ import { useDispatch, useSelector } from "react-redux"
 import { asyncMarkCompleted } from "../../actions/lecturesAction"
 
 const LectureMarkAsComplete = (props) => {
-    const { lecture, mark, handleMarkComplete } = props
+    const { enrolledStudents, lecture, mark, handleMarkComplete } = props
     const students = useSelector(state => {
         return state.students
     })
 
     const [student, setStudent] = useState(null)
-    console.log('selected student', student)
 
     const defaultProps = {
-        options: students,
+        options: enrolledStudents,
         getOptionLabel: (option) => option.name,
     }
     const dispatch = useDispatch()
     const handleMark = (e, sid) => {
-        console.log('modal studentId', sid)
         dispatch(asyncMarkCompleted(lecture._id, sid))
         handleMarkComplete()
     }

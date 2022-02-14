@@ -215,7 +215,6 @@ export const asyncEnrollCourseAdmin = (courseId, studentId, getResult) => {
         })
             .then((response) => {
                 const result = response.data
-                console.log('inside then',result)
                 if (result.hasOwnProperty('errors')) {
                     Swal.fire({
                         icon: 'error',
@@ -236,7 +235,6 @@ export const asyncEnrollCourseAdmin = (courseId, studentId, getResult) => {
                 }
             })
             .catch((err) => {
-                console.log('inside catch', err)
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
@@ -247,7 +245,6 @@ export const asyncEnrollCourseAdmin = (courseId, studentId, getResult) => {
     }
 }
 export const asyncUnenrollCourseAdmin = (courseId, studentId, getResult) => {
-    console.log('async uneroll by admin', courseId, studentId)
     return(dispatch) => {
         axios.patch(`courses/unenroll?courseId=${courseId}&studentId=${studentId}`, {}, {
             headers: {
@@ -256,7 +253,6 @@ export const asyncUnenrollCourseAdmin = (courseId, studentId, getResult) => {
         })
             .then((response) => {
                 const result = response.data
-                console.log('res=', result)
                 if (result.hasOwnProperty('errors')) {
                     Swal.fire({
                         icon: 'error',

@@ -14,7 +14,6 @@ const StudentLogin = (props) => {
     const dispatch = useDispatch()
 
     const getStudent = (obj) => {
-        console.log('getting student',obj)
         dispatch(setUser(obj))
     }
 
