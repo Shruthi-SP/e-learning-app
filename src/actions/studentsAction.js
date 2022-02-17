@@ -60,7 +60,7 @@ export const asyncRegisterStudent = (formData, resetForm) => {
                         footer: ''
                     })
                     dispatch(addStudent(result))
-                    resetForm()
+                    resetForm(result._id)
                 }
             })
             .catch((err) => {
@@ -182,7 +182,7 @@ export const asyncUpdateStudent = (id, formData) => {
             })
     }
 }
-export const asyncDeleteStudent = (id) => {
+export const asyncDeleteStudent = (id, redirect) => {
     return (dispatch) => {
         axios.delete(`/admin/students/${id}`, {
             headers: {
@@ -201,6 +201,7 @@ export const asyncDeleteStudent = (id) => {
                 }
                 else {
                     dispatch(deleteStudent(result))
+                    redirect()
                     Swal.fire({
                         icon: 'success',
                         title: 'Success',

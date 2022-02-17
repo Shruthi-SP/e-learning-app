@@ -5,7 +5,7 @@ import { Typography, TextField, Button } from "@mui/material"
 import { asyncLoginUser } from "../../actions/usersAction"
 import { asyncGetAllStudents } from "../../actions/studentsAction"
 
-const Login = (props) => {
+const AdminLogin = (props) => {
     
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -19,14 +19,14 @@ const Login = (props) => {
     }
 
     const runValidation = () => {
-        if (email.trim().length === 0) {
-            err.email = 'email required'
+        if (email.trim().length < 0) {
+            err.email = 'Email is required'
         }
         else if (!validator.isEmail(email)) {
-            err.email = 'email format is not valid'
+            err.email = 'Email format is not valid'
         }
-        if (password.trim().length === 0) {
-            err.password = 'password required'
+        if (password.trim().length < 4) {
+            err.password = 'Password should have 8 to 128 characters'
         }
     }
 
@@ -72,4 +72,4 @@ const Login = (props) => {
     </div>
 
 }
-export default Login
+export default AdminLogin

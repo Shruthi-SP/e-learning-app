@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, Route } from "react-router-dom"
 import { asyncGetUser, removeUser } from "../actions/usersAction"
-import Login from "./admin/Login"
+import AdminLogin from "./admin/AdminLogin"
 import PrivateRoute from "./helper/PrivateRoute"
 import Account from "./admin/Account"
 import { Grid } from "@mui/material"
@@ -24,6 +24,7 @@ import LecturesList from "./lectures/LecturesList"
 import AddLecture from "./lectures/AddLecture"
 import StudentShowPage from "./students/StudentShowPage"
 import LectureInfo from "./lectures/LectureInfo"
+import Login from "./Login"
 
 const Navbar = (props) => {
     const [userLoggedIn, setUserLoggedIn] = useState(false)
@@ -122,12 +123,13 @@ const Navbar = (props) => {
 
                             <Link style={{ margin: '5px', padding: '5px', justifyContent: 'end', textDecoration: 'none', fontSize: '18px', color: 'white'}} to='/admin/register'> Register</Link>
 
-                            {/* <Link style={{ margin: '10px', justifyContent: 'end', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/admin/login'>Login</Link> */}
-                            <select style={{ margin: '5px', padding: '5px', justifyContent: 'end', backgroundColor: '#63A1DE', border:'0px', fontSize: '16.9px', color: 'white' }} value={login} onChange={handleLogin}>
+                            <Link style={{ margin: '10px', justifyContent: 'end', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/login'>Login</Link>
+                            
+                            {/* <select style={{ margin: '5px', padding: '5px', justifyContent: 'end', backgroundColor: '#63A1DE', border:'0px', fontSize: '16.9px', color: 'white' }} value={login} onChange={handleLogin}>
                                 <option style={{border:'0px'}}>Login As</option>
                                 <option style={{border:'0px'}} value="Admin">Admin</option>
                                 <option value="Student">Student</option>
-                            </select>
+                            </select> */}
 
                         </Grid>
 
@@ -136,11 +138,14 @@ const Navbar = (props) => {
 
             <Route path='/' exact component={Home}></Route>
             <Route path='/admin/register' component={AddAdmin}></Route>
-            <Route path='/admin/login' render={(props) => {
+            {/* <Route path='/admin/login' render={(props) => {
                 return <Login {...props} />
             }}></Route>
             <Route path='/student/login' render={(props) => {
                 return <StudentLogin {...props} />
+            }}></Route> */}
+            <Route path='/login' render={(props) => {
+                return <Login {...props} />
             }}></Route>
             <PrivateRoute path='/admin/account' component={Account} />
             <PrivateRoute path='/admin/create-student' component={AddStudent} />

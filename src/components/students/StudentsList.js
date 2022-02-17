@@ -49,10 +49,16 @@ const StudentsList = (props) => {
     setObj(ele)
     setRemove(!remove)
   }
-  const handleYes = (e, obj) => {
-    dispatch(asyncDeleteStudent(obj._id))
+  const redirect = () => {
+    console.log('redirecting delete', remove, obj)
+    props.history.push(`/admin/students`)
+    setRemove(false)
     setObj({})
-    setRemove(!remove)
+  }
+  const handleYes = (e, obj) => {
+    dispatch(asyncDeleteStudent(obj._id, redirect))
+    // setObj({})
+    // setRemove(!remove)
   }
   const handleClose = () => {
     setRemove(false)
@@ -64,7 +70,7 @@ const StudentsList = (props) => {
   }
 
   const rows = students.map(ele => {
-    return createData(ele._id, ele.name, <Link style={{ color:'green' }} to={`/admin/students/${ele._id}`}><RemoveRedEyeOutlined /></Link>, <IconButton variant="outlined" color="primary" size="small" onClick={(e) => { handleEdit(e, ele) }}><Edit /></IconButton>, <IconButton variant="outlined" color="error" size="small" onClick={(e) => { handleRemove(e, ele) }}><Delete /></IconButton>)
+    return createData(ele._id, ele.name, <Link style={{ color: 'green' }} to={`/admin/students/${ele._id}`}><RemoveRedEyeOutlined /></Link>, <IconButton variant="outlined" color="primary" size="small" onClick={(e) => { handleEdit(e, ele) }}><Edit /></IconButton>, <IconButton variant="outlined" color="error" size="small" onClick={(e) => { handleRemove(e, ele) }}><Delete /></IconButton>)
   })
   function BasicTable() {
     return (
@@ -95,17 +101,18 @@ const StudentsList = (props) => {
   }
   return (
     <div>
-      {students.length > 0 && <>
-        <Grid container direction="row" sx={{ mt: 1, mb: 1 }}>
-          <Grid item xs sx={{ display: "flex", justifyContent: "flex-start", pt: 1 }}><Typography variant='h5'>Students - {students.length}</Typography></Grid>
-
-          <Grid item xs sx={{ display: "flex", justifyContent: "flex-end" }}>
-            <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '22px' }} to={`/admin/create-student`}>Add Student</Link>
-          </Grid>
+      <Grid container direction="row" sx={{ mt: 1, mb: 1 }}>
+        <Grid item xs sx={{ display: "flex", justifyContent: "flex-start", pt: 1 }}>
+          {students.length > 0 ? <Typography component="h1" variant='h5'>Students - {students.length} </Typography> : <Typography component="h1" variant="h5" >No Students. Add Students!!</Typography>}
         </Grid>
-        <h1>Students - {students.length}</h1>
+
+        <Grid item xs sx={{ display: "flex", justifyContent: "flex-end" }}>
+          <Link style={{ margin: '5px', fontSize: '23px', paddingTop: '3px' }} to={`/admin/create-student`}>Add Student</Link>
+        </Grid>
+      </Grid>
+
+      {students.length > 0 && <>
         <BasicTable />
-        {/* {view && <ModalView id={id} view={view} handleView={handleView} />} */}
         {edit && <StudentEdit id={id} edit={edit} handleEdit={handleEdit} />}
         {remove && <Dialog open={remove} onClose={handleClose}>
           <DialogContent>Are you sure want to delete?</DialogContent>

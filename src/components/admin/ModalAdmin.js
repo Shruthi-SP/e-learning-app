@@ -24,9 +24,9 @@ const ModalAdmin = (props) => {
     return (
         <div>
             <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>Update Info</DialogTitle>
-                <DialogContent>
-                    <Typography variant="h5" mb={1}>Update </Typography>
+                <DialogTitle></DialogTitle>
+                <DialogContent sx={{ alignItems: 'center' }}>
+                    <Typography variant="h5" mb={1} >User Update </Typography>
                     <RegisterForm {...user} name={name} website={website} formSubmission={formSubmission} handleClose={handleClose} />
                 </DialogContent>
                 <DialogActions>

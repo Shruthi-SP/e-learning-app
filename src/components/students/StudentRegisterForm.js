@@ -80,7 +80,7 @@ const StudentRegisterForm = (props) => {
             {!_id && <><TextField label='Enter password' variant='outlined' type='password' name='password' value={password} onChange={handleChange} ></TextField> <br />
             {formErr.password && <span style={{ color: 'red' }}>{formErr.password}</span>}<br /></>}
 
-            <Button sx={{ mr: 1 }} type="submit" variant="contained" color="primary" size="small">Submit</Button>
+            <Button sx={{ mr: 1 }} type="submit" variant="contained" color="primary" size="small">Create</Button>
             <Button sx={{ mr: 1 }} variant="contained" color="primary" size="small" onClick={() => { edit ? handleClose() : handleCancel() }}>Cancel</Button>
 
         </form>

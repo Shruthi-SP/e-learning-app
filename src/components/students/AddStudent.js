@@ -6,8 +6,8 @@ import StudentRegisterForm from './StudentRegisterForm'
 const AddStudent = (props) => {
     const dispatch = useDispatch()
 
-    const redirect = () => {
-        props.history.push('/admin/students')
+    const redirect = (id) => {
+        props.history.push(`/admin/students/${id}`)
     }
 
     const formSubmission = (formData) => {
