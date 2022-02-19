@@ -5,7 +5,7 @@ import { asyncAddComment, asyncGetLecture, asyncMarkCompleted, asyncUncomment } 
 import { Grid } from "@mui/material"
 import { Link } from "react-router-dom"
 import { Tooltip } from "@material-ui/core"
-import { AddCommentOutlined, SummarizeOutlined } from "@mui/icons-material"
+import { AddCommentOutlined, KeyboardDoubleArrowLeft,  } from "@mui/icons-material"
 import { asyncGetAllStudents } from "../../actions/studentsAction"
 import LectureMarkAsComplete from "./LectureMarkAsComplete"
 import { asyncGetCourse } from "../../actions/coursesAction"
@@ -93,7 +93,7 @@ const LectureInfo = (props) => {
                             <Typography variant="h4" >{lecture.title}</Typography>
                         </Grid>
                         <Grid item xs sx={{ display: "flex", justifyContent: "end" }}>
-                            <Link style={{margin: '5px', marginTop: '10px', textDecoration: 'none' }} to={`/courses/${courseId}/lectures`}><Tooltip title="All Lectures" ><SummarizeOutlined color="primary" /></Tooltip></Link>
+                            <Link style={{margin: '5px', marginTop: '10px', textDecoration: 'none' }} to={`/courses/${courseId}/lectures`}><Tooltip title="All Lectures" ><KeyboardDoubleArrowLeft color="primary" /></Tooltip></Link>
                         </Grid>
                     </Grid>
 

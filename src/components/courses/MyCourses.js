@@ -15,19 +15,22 @@ const MyCourses = (props) => {
     })
 
     const [myCourses, setMyCourses] = useState({})
-    const [enrolled, setEnrolled] = useState(true)
+    const [enrolled, setEnrolled] = useState(false)
 
     const getResult = (arr) => {
         setMyCourses(arr)
+        setEnrolled(true)
     }
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(asyncGetMyCourses(getResult))
         dispatch(asyncGetAllCourses())
-    }, [enrolled]) 
+    }, []) 
 
     const handleEnrolled = () => {
-        setEnrolled(!enrolled)
+        setEnrolled(false)
+        dispatch(asyncGetMyCourses(getResult))
+        dispatch(asyncGetAllCourses())
     }
 
     return (

@@ -112,6 +112,9 @@ const CourseForm = (props) => {
             setFormErr(err)
         }
     }
+    const handleCancel = () => {
+        props.history.push('/courses')
+    }
 
     return <div>
         <form onSubmit={handleSubmit}>
@@ -185,7 +188,7 @@ const CourseForm = (props) => {
                     {formErr.level && <span style={{ color: 'red' }}>{formErr.level}</span>}<br /><br/>
 
                     <Button sx={{mt:1, mr:1}} type="submit" variant="contained" color="primary" size="small">Submit</Button>
-                    {edit && <Button sx={{ mt:1,mr: 1 }} variant="contained" color="primary" size="small" onClick={() => { handleClose() }}>Cancel</Button>}
+                    <Button sx={{ mt:1,mr: 1 }} variant="contained" color="primary" size="small" onClick={() => { edit ? handleClose() : handleCancel() }}>Cancel</Button>
                 </Grid>
             </Grid>
         </form>
