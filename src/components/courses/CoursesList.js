@@ -1,4 +1,5 @@
-import { Grid, Typography } from '@mui/material'
+import { AddTaskRounded } from '@mui/icons-material'
+import { Button, Grid, Typography, Tooltip } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
@@ -32,7 +33,8 @@ const CoursesList = (props) => {
 
                 <Grid item xs sx={{ display: "flex", justifyContent: "flex-end" }}>
                     {(Object.keys(user).length > 0) && <>
-                        {user.role === 'admin' && <Link style={{ margin: '5px', fontSize: '22px' }} to={`/courses-create`}>Add Course</Link>}
+                        {/* {user.role === 'admin' && <Link style={{ margin: '5px', fontSize: '22px' }} to={`/courses-create`}>Add Course</Link>} */}
+                        {user.role === 'admin' && <Button onClick={()=>{props.history.push(`/courses-create`)}}><Tooltip title="Add Course"><AddTaskRounded color="success" /></Tooltip></Button> }
                     </>}
                 </Grid>
             </Grid>

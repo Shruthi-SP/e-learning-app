@@ -85,7 +85,7 @@ const StudentShowPage = (props) => {
                             <Typography>CreatedBy: <b>{user.username}</b></Typography>
                         </CardContent>
                         <CardActions>
-                            <Button variant="contained" size="small" color="success" onClick={() => { setEnroll(!enroll) }}>enroll</Button>
+                            <Button variant="contained" size="small" color="success" onClick={() => { setEnroll(!enroll) }}>enroll to more courses</Button>
                         </CardActions>
                     </Box>
                 </Card> : <Typography variant="h6" color='error'>Student record is deleted</Typography>

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Grid, Box, Tabs, Tab, Typography, Button } from '@mui/material'
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Tooltip } from "@material-ui/core"
 import { KeyboardDoubleArrowLeft } from "@mui/icons-material"
 import { useEffect, useState } from "react"
@@ -121,6 +121,7 @@ const CourseShowPage = (props) => {
                             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                                 <Tab label="Course Details" {...a11yProps(0)} />
                                 {user.role === 'admin' && <Tab label="Students Enrolled" {...a11yProps(1)} />}
+                                {(user.role === 'admin' || isEnrolled) && <Tab label='lectures' {...a11yProps(2)} />}                                
                             </Tabs>
                         </Grid>
                         <Grid item xs={2} sx={{ display: "flex", justifyContent: "flex-end", pt: 1 }}>
@@ -133,10 +134,11 @@ const CourseShowPage = (props) => {
                     <div>
                         <Typography variant="body" >Course Name: <b>{course.name}</b></Typography><br />
                         <Typography variant="body" >Category: <b>{course.category}</b></Typography><br />
-                        <Typography variant="body" >Duration: <b>{course.duration}</b></Typography><br />
+                        <Typography variant="body" >Duration: <b>{course.duration} months</b></Typography><br />
                         <Typography variant="body" >Author: <b>{course.author}</b></Typography><br />
                         <Typography variant="body" >Level: <b>{course.level}</b></Typography><br />
-                        <Typography variant="body" >Validity: <b>{course.validity}</b></Typography><br />
+                        <Typography variant="body" >Validity: <b>{course.validity} months</b></Typography><br />
+                        <Typography variant="body" >Release Date: <b>{course.releaseDate.slice(0, 10).split('-').reverse().join('-')}</b></Typography><br />
                         <Typography variant="body" >Created At: <b>{course.createdAt.slice(0, 10).split('-').reverse().join('-')}</b></Typography><br />
                         <Typography variant="body" >Updated At: <b>{course.updatedAt.slice(0, 10).split('-').reverse().join('-')}</b></Typography><br />
                         {(Object.keys(user).length > 0 && user.role === 'admin') && <>
@@ -147,14 +149,18 @@ const CourseShowPage = (props) => {
                 </TabPanel>
 
                 <TabPanel value={value} index={1}>
-                    <Typography variant="body" >Students Enrolled: {course.students.length > 0 ? <>
+                    {isEnrolled ? <Redirect to={`/courses/${courseId}/lectures`} /> :
+                    <><Typography variant="body" >Students Enrolled: {course.students.length > 0 ? <>
                         {course.students.map(ele => {
                             return <li key={ele.student}>
                                 <Link style={{ textDecoration: 'none', color: '#2B547E' }} to={`/admin/students/${ele.student}`}><b>{getStudentsName(ele.student)}</b></Link>
                                 <Button variant="outlined" color='error' size="small" sx={{ ml: 1 }} onClick={(e) => { handleUnenroll(e, ele.student) }}>unenroll</Button></li>
                         })}</> : <>
                         <Typography variant="body"><b>No students enrolled yet.</b></Typography><br /></>}</Typography>
-                    <Button variant="contained" color='success' size="small" sx={{ m: 1, ml: 0 }} onClick={handleEnroll} >enroll students</Button>
+                    <Button variant="contained" color='success' size="small" sx={{ m: 1, ml: 0 }} onClick={handleEnroll} >enroll students</Button></>}
+                </TabPanel>
+                <TabPanel value={value} index={2}>
+                    <Redirect to={`/courses/${courseId}/lectures`} />
                 </TabPanel>
                 {enroll && <CourseEnroll course={course} enroll={enroll} handleEnroll={handleEnroll} />}
             </Box>}

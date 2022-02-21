@@ -5,7 +5,7 @@ import { asyncAddComment, asyncGetLecture, asyncMarkCompleted, asyncUncomment } 
 import { Grid } from "@mui/material"
 import { Link } from "react-router-dom"
 import { Tooltip } from "@material-ui/core"
-import { AddCommentOutlined, KeyboardDoubleArrowLeft,  } from "@mui/icons-material"
+import { AddCommentOutlined, KeyboardDoubleArrowLeft, } from "@mui/icons-material"
 import { asyncGetAllStudents } from "../../actions/studentsAction"
 import LectureMarkAsComplete from "./LectureMarkAsComplete"
 import { asyncGetCourse } from "../../actions/coursesAction"
@@ -27,6 +27,7 @@ const LectureInfo = (props) => {
     const [comment, setComment] = useState('')
     const [toggle, setToggle] = useState(false)
     const [enrolledStudents, setEnrolledStudents] = useState([])
+    const [course, setCourse] = useState({})
 
     const getResult = (obj) => {
         if (Object.keys(obj).length > 0 && typeof (obj) === 'object') {
@@ -35,16 +36,18 @@ const LectureInfo = (props) => {
     }
     const getCourse = (obj) => {
         if (Object.keys(obj).length > 0 && typeof (obj) === 'object') {
-            const es = obj.students.map(ele=>students.find(e=>e._id===ele.student))
+            setCourse(obj)
+            const es = obj.students.map(ele => students.find(e => e._id === ele.student))
             setEnrolledStudents(es)
         }
     }
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(asyncGetLecture(courseId, lectureId, getResult))
+        dispatch(asyncGetCourse(courseId, getCourse))
+
         if (user.role === 'admin') {
             dispatch(asyncGetAllStudents())
-            dispatch(asyncGetCourse(courseId, getCourse))
         }
     }, [mark, completed, toggle])
 
@@ -54,7 +57,7 @@ const LectureInfo = (props) => {
             if (student) {
                 return student.name
             }
-            else return 'unknown'
+            else return 'Unknown'
         }
     }
 
@@ -90,10 +93,10 @@ const LectureInfo = (props) => {
 
                     <Grid container >
                         <Grid item xs sx={{ display: "flex", justifyContent: "flex-start" }}>
-                            <Typography variant="h4" >{lecture.title}</Typography>
+                            <Typography variant="h5" >{course.name} - {lecture.title}</Typography>
                         </Grid>
                         <Grid item xs sx={{ display: "flex", justifyContent: "end" }}>
-                            <Link style={{margin: '5px', marginTop: '10px', textDecoration: 'none' }} to={`/courses/${courseId}/lectures`}><Tooltip title="All Lectures" ><KeyboardDoubleArrowLeft color="primary" /></Tooltip></Link>
+                            <Link style={{ margin: '5px', marginTop: '10px', textDecoration: 'none' }} to={`/courses/${courseId}/lectures`}><Tooltip title="All Lectures" ><KeyboardDoubleArrowLeft color="primary" /></Tooltip></Link>
                         </Grid>
                     </Grid>
 
@@ -107,12 +110,13 @@ const LectureInfo = (props) => {
 
                             {lecture.assetType === 'text' && <object data={lecture.assetURL} width="600" height="150"></object>}
 
-                            {lecture.assetType === 'img' && <img src={lecture.assetURL}  width="500" height="300" />}
+                            {lecture.assetType === 'img' && <img src={lecture.assetURL} width="500" height="300" />}
                             <br />
-                            <Tooltip sx={{mt:1}} title='Add comment'><AddCommentOutlined /></Tooltip>
+                            <Tooltip sx={{ mt: 1 }} title='Add comment'><AddCommentOutlined /></Tooltip>
                             <Grid container >
                                 <Grid item xs={12} sm={9} >
-                                    <TextField style={{ minWidth: '475px' }}
+                                    <TextField
+                                        fullWidth
                                         multiline
                                         rows={2}
                                         label='write a comment here...'
@@ -121,17 +125,15 @@ const LectureInfo = (props) => {
                                         onChange={(e) => { setComment(e.target.value) }}
                                     />
                                     <Grid item xs sx={{ display: "flex", justifyContent: "end" }}>
-                                        <Button variant="contained" size="small" sx={{ mt: 1, mr: 1 }} color='success' onClick={handlePostComment}>Post</Button>
+                                        <Button variant="contained" size="small" sx={{ mt: 1 }} color='success' onClick={handlePostComment}>Post</Button>
                                     </Grid>
                                     {
                                         lecture.comments.length > 0 && <>{
                                             lecture.comments.map(ele => {
-                                                return <Box key={ele._id} sx={{ m: 1, ml: 0, p: 1, pr: 0 }} border='1px solid rgba(0, 0, 0, 0.1)' borderRadius='10px'>
+                                                return <Box key={ele._id} sx={{ m: 1, ml: 0, mr: 0, p: 1, pr: 0 }} border='1px solid rgba(0, 0, 0, 0.1)' borderRadius='5px'>
                                                     <Typography variant="h6">{getStudentName(ele.student)}</Typography>
+                                                    <Typography variant="body" sx={{ m: 1 }}>{ele.body}</Typography>
                                                     <Grid container >
-                                                        <Grid item xs sx={{ display: "flex", justifyContent: "flex-start" }}>
-                                                            <Typography variant="body" sx={{ m: 1 }}>{ele.body}</Typography>
-                                                        </Grid>
                                                         <Grid item xs sx={{ display: "flex", justifyContent: "end" }}>
                                                             {(user.role === 'admin' || user._id === ele.student) && <Button variant="contained" size="small" sx={{ m: 1, mr: 0 }} color='warning' onClick={(e) => { handleUnComment(e, ele._id) }}>Uncomment</Button>}
                                                         </Grid>
@@ -147,7 +149,9 @@ const LectureInfo = (props) => {
                             <Button variant="contained" sx={{ m: 1, ml: 0 }} onClick={handleMarkComplete} >Mark as complete</Button>
                             {user.role === 'admin' && <Button variant="contained" sx={{ m: 0, mt: 3 }} onClick={() => { setCompleted(!completed) }}>Students completed</Button>}
                         </Grid>
+
                         {mark && <LectureMarkAsComplete enrolledStudents={enrolledStudents} lecture={lecture} mark={mark} handleMarkComplete={handleMarkComplete} />}
+
                         {completed && <Dialog open={completed} onClose={handleStudentsCompleted} fullWidth={true}>
                             <DialogTitle>Students completed <b>{lecture.title}</b></DialogTitle>
                             <DialogContent>

@@ -86,35 +86,33 @@ const Navbar = (props) => {
     }
 
     return (
-        <div>
+        <>
             {
                 userLoggedIn ?
-                    <Grid container direction="row" sx={{ mt: 1, mb: 1 }} style={{ borderRadius: '2px', backgroundColor: '#63A1DE' }}>
+                    <Grid container direction="row" sx={{ mt: 1, mb: 1, mr:0 }} style={{ borderRadius: '2px', backgroundColor: '#63A1DE' }}>
 
                         <Grid item xs sx={{ display: "flex", justifyContent: "flex-start", }} >
                             {
-                                admin && <>
-                                    <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/admin/account'>Account</Link>
+                                admin ? <>
+                                    <Link style={{ margin: '10px', fontSize: '18px', color: 'white' }} to='/admin/account'>Account</Link>
                                     
-                                    <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/admin/students'>Students</Link>
+                                    <Link style={{ margin: '10px', fontSize: '18px', color: 'white' }} to='/admin/students'>Students</Link>
                                     
+                                </> : <>
+                                
+                                    <Link style={{ margin: '10px', fontSize: '18px', color: 'white' }} to='/student/account'>Account</Link>
+                                    <Link style={{ margin: '10px', fontSize: '18px', color: 'white' }} to='/mycourses'>My Courses</Link>
                                 </>
                             }
-                            {
-                                !admin && <>
-                                    <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/student/account'>Account</Link>
-                                    <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/mycourses'>My Courses</Link>
-                                </>
-                            }
-                            <Link style={{ margin: '5px', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/courses'>Courses</Link>
+                            <Link style={{ margin: '10px', fontSize: '18px', color: 'white' }} to='/courses'>Courses</Link>
                             
                         </Grid>
 
                         <Grid item xs sx={{ display: "flex", justifyContent: "flex-end" }}>
-                            <Link style={{ margin: '5px', justifyContent: 'end', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/' onClick={handleLogout}>Logout</Link>
+                            <Link style={{ margin: '10px', justifyContent: 'end', fontSize: '18px', color: 'white' }} to='/' onClick={handleLogout}>Logout</Link>
                         </Grid>
 
-                    </Grid> : <Grid container direction="row" sx={{ mt: 1, mb: 1 }} style={{ borderRadius: '2px', backgroundColor: '#63A1DE', width: '98%' }}>
+                    </Grid> : <Grid container direction="row" sx={{ mt: 1, mb: 1, mr:0 }} style={{ borderRadius: '2px', backgroundColor: '#63A1DE', width: '100%' }}>
 
                         <Grid item xs sx={{ display: "flex", justifyContent: "flex-start", }}>
                             <Link style={{ margin: '5px', padding: '5px', textDecoration: 'none', fontSize: '18px', color: 'white'}} to='/'>Home</Link>
@@ -124,7 +122,7 @@ const Navbar = (props) => {
 
                             <Link style={{ margin: '5px', padding: '5px', justifyContent: 'end', textDecoration: 'none', fontSize: '18px', color: 'white'}} to='/admin/register'> Register</Link>
 
-                            <Link style={{ margin: '10px', justifyContent: 'end', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/login'>Login</Link>
+                            <Link style={{ margin: '5px', padding: '5px', justifyContent: 'end', textDecoration: 'none', fontSize: '18px', color: 'white' }} to='/login'>Login</Link>
                             
                             {/* <select style={{ margin: '5px', padding: '5px', justifyContent: 'end', backgroundColor: '#63A1DE', border:'0px', fontSize: '16.9px', color: 'white' }} value={login} onChange={handleLogin}>
                                 <option style={{border:'0px'}}>Login As</option>
@@ -165,7 +163,7 @@ const Navbar = (props) => {
             <PrivateRoute path='/mycourses/:id/lectures' component={LecturesList} />
             <PrivateRoute path='/mycourses/:courseId/lectures/:id' component={LectureInfo} />
             <PrivateRoute path='/courses-create' component={AddCourse} />
-        </div>
+        </>
     )
 }
 export default withRouter(Navbar) 

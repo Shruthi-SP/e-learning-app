@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom";
 import { asyncDeleteStudent, asyncGetAllStudents } from "../../actions/studentsAction"
 import StudentEdit from "./StudentEdit";
-import { Dialog, DialogActions, DialogContent, IconButton, Typography, Button, Grid, TextField, InputAdornment } from '@mui/material';
-import { Delete, Edit, RemoveRedEyeOutlined, PersonSearch } from "@mui/icons-material";
+import { Dialog, DialogActions, DialogContent, IconButton, Typography, Button, Grid, TextField, InputAdornment, Tooltip } from '@mui/material';
+import { Delete, Edit, RemoveRedEyeOutlined, PersonSearch, AddTaskRounded } from "@mui/icons-material";
 import PropTypes from 'prop-types';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
@@ -178,6 +178,7 @@ const StudentList = (props) => {
 
         <Grid item xs sx={{ display: "flex", justifyContent: "flex-end" }}>
           <Link style={{ margin: '5px', fontSize: '23px', paddingTop: '3px' }} to={`/admin/create-student`}>Add Student</Link>
+          <Button onClick={()=>{props.history.push(`/admin/create-student`)}}><Tooltip title="Add Course"><AddTaskRounded color="success" /></Tooltip></Button>
         </Grid>
       </Grid>
       {students.length > 0 && <>

@@ -3,6 +3,7 @@ import { Delete, Edit, AddTask, KeyboardDoubleArrowLeft } from "@mui/icons-mater
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom";
+import { asyncGetCourse } from "../../actions/coursesAction";
 import { asyncAllLectures, asyncDeleteLecture } from "../../actions/lecturesAction"
 import LectureEdit from "./LectureEdit";
 
@@ -12,6 +13,7 @@ const LecturesList = (props) => {
     const [edit, setEdit] = useState(false)
     const [remove, setRemove] = useState(false)
     const [obj, setObj] = useState({})
+    const [course, setCourse] = useState({})
 
     const lectures = useSelector(state => {
         return state.lectures
@@ -20,9 +22,16 @@ const LecturesList = (props) => {
         return state.user
     })
 
+    const getCourse = (obj) => {
+        if(typeof (obj) === 'object'){
+            setCourse(obj)
+        }
+    }
+
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(asyncAllLectures(courseId))
+        dispatch(asyncGetCourse(courseId, getCourse))
     }, [courseId, edit, remove])
 
     const handleEdit = (e, object) => {
@@ -48,7 +57,7 @@ const LecturesList = (props) => {
         <div>
             <Grid container direction="row" sx={{ mt: 1, mb: 1 }}>
                 <Grid item xs sx={{ display: "flex", justifyContent: "flex-start", pt: 1 }}>
-                    <Typography variant="h5">Lectures</Typography>
+                    <Typography variant="h5">{course.name} - Lectures</Typography>
                 </Grid>
                 <Grid item xs sx={{ display: "flex", justifyContent: "flex-end" }}>
                     {(Object.keys(user).length > 0 && user.role === 'admin') && <>
@@ -59,10 +68,10 @@ const LecturesList = (props) => {
             </Grid>
             {lectures.length > 0 ? <Grid container>
                 <Grid item sm={12} md={4}>
-                    <ol>
+                    <ol style={{ color:'#2675d1' }}>
                         {lectures.map(ele => {
                             return <li key={ele._id}>
-                                <Link style={{ textDecoration: 'none', fontSize: '18px', color: 'black' }} to={`/courses/${courseId}/lectures/${ele._id}`} >{ele.title}</Link>
+                                <Link style={{ fontSize: '18px', color: '#2675d1' }} to={`/courses/${courseId}/lectures/${ele._id}`} >{ele.title}</Link>
                                 {user.role === 'admin' && <>
                                     <IconButton variant="outlined" color="primary" size="small" onClick={(e) => { handleEdit(e, ele) }}><Edit /></IconButton>
                                     <IconButton variant="outlined" color="error" size="small" onClick={(e) => { handleRemove(e, ele) }}><Delete /></IconButton>
