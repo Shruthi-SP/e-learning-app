@@ -73,11 +73,9 @@ const Login = (props) => {
                 password: password
             }
             if (loginAs === 'admin') {
-                console.log('admin data', formData)
                 dispatch(asyncLoginUser(formData, redirectAdmin))
             }
             else {
-                console.log('student data', formData)
                 dispatch(asyncLoginStudent(formData, getId, redirectStudent))
             }
         }

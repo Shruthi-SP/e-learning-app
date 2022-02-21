@@ -49,8 +49,6 @@ const StudentList = (props) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  console.log('state vars', edit, id, remove, obj, students.length, tableData.length)
-
   useEffect(() => {
     if (allStudents.length > 0) {
       setStudents(allStudents)
@@ -165,7 +163,6 @@ const StudentList = (props) => {
     const userInput = e.target.value
     setSearch(userInput)
     const newList = students.filter(ele => ele.name.toLowerCase().includes(userInput))
-    console.log('search list', newList)
     setTableData(newList)
   }
 

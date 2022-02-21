@@ -38,7 +38,8 @@ const LectureInfo = (props) => {
         if (Object.keys(obj).length > 0 && typeof (obj) === 'object') {
             setCourse(obj)
             const es = obj.students.map(ele => students.find(e => e._id === ele.student))
-            setEnrolledStudents(es)
+            const r = es.filter(ele=>ele!==undefined)
+            setEnrolledStudents(r)
         }
     }
     const dispatch = useDispatch()
@@ -158,9 +159,9 @@ const LectureInfo = (props) => {
                                 {
                                     lecture.students.length > 0 ? <ol>{
                                         lecture.students.map(ele => {
-                                            return <li key={ele.student}>{getStudentName(ele.student)}</li>
+                                            return <li key={ele._id}>{getStudentName(ele.student)}</li>
                                         })
-                                    }</ol> : <Typography>No students yet</Typography>
+                                    }</ol> : <Typography>No students completed yet</Typography>
                                 }
                             </DialogContent>
                             <DialogActions>

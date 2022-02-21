@@ -58,8 +58,7 @@ const CourseInfo = (props) => {
     const getData = (obj) => {
         if(typeof(obj)==='object'){
             setCourse(obj)
-        }        
-        console.log('enrolled course', obj)
+        }
     }
     const handleEnroll = () => {
         if (user.role === 'admin') {
