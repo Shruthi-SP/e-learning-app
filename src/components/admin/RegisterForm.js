@@ -123,7 +123,6 @@ const RegisterForm = (props) => {
         />{formErr.name && <span style={{ color: 'red' }}>{formErr.name}</span>}
         <TextField
             margin="normal"
-            required
             fullWidth
             id="website"
             label="Academy Website"

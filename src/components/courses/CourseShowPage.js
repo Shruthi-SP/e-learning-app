@@ -9,6 +9,7 @@ import { asyncGetCourse, asyncEnrollCourseStudent, asyncUnenrollCourseAdmin, asy
 import { asyncGetAllStudents } from "../../actions/studentsAction"
 import CourseEnroll from "./CourseEnroll"
 import { asyncAllLectures } from '../../actions/lecturesAction';
+import Helmet from 'react-helmet';
 
 const CourseShowPage = (props) => {
     const courseId = props.match.params.id
@@ -113,14 +114,17 @@ const CourseShowPage = (props) => {
 
     return (
         <>
-            {(Object.keys(course).length > 0) && <Box sx={{ width: '100%' }}>
+            <Helmet>
+                <title>E-Learning | Course</title>
+            </Helmet>
+            {(Object.keys(course).length > 0) ? <Box sx={{ width: '100%' }}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
                     <Grid container direction="row" >
                         <Grid item xs={10} sx={{ display: "flex", justifyContent: "flex-start", pt: 1 }}>
                             <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
                                 <Tab label="Course Details" {...a11yProps(0)} />
                                 {user.role === 'admin' && <Tab label="Students Enrolled" {...a11yProps(1)} />}
-                                {(user.role === 'admin' || isEnrolled) && <Tab label='lectures' {...a11yProps(2)} />}                                
+                                {(user.role === 'admin' || isEnrolled) && <Tab label='lectures' {...a11yProps(2)} />}
                             </Tabs>
                         </Grid>
                         <Grid item xs={2} sx={{ display: "flex", justifyContent: "flex-end", pt: 1 }}>
@@ -149,20 +153,23 @@ const CourseShowPage = (props) => {
 
                 <TabPanel value={value} index={1}>
                     {isEnrolled ? <Redirect to={`/courses/${courseId}/lectures`} /> :
-                    <><Typography variant="body" >Students Enrolled: {course.students.length > 0 ? <>
-                        {course.students.map(ele => {
-                            return <li key={ele.student}>
-                                <Link style={{ textDecoration: 'none', color: '#2B547E' }} to={`/admin/students/${ele.student}`}><b>{getStudentsName(ele.student)}</b></Link>
-                                <Button variant="outlined" color='error' size="small" sx={{ ml: 1 }} onClick={(e) => { handleUnenroll(e, ele.student) }}>unenroll</Button></li>
-                        })}</> : <>
-                        <Typography variant="body"><b>No students enrolled yet.</b></Typography><br /></>}</Typography>
-                    <Button variant="contained" color='success' size="small" sx={{ m: 1, ml: 0 }} onClick={handleEnroll} >enroll students</Button></>}
+                        <><Typography variant="body" >Students Enrolled: {course.students.length > 0 ? <>
+                            {course.students.map(ele => {
+                                return <li key={ele.student}>
+                                    <Link style={{ textDecoration: 'none', color: '#2B547E' }} to={`/admin/students/${ele.student}`}><b>{getStudentsName(ele.student)}</b></Link>
+                                    <Button variant="outlined" color='error' size="small" sx={{ ml: 1 }} onClick={(e) => { handleUnenroll(e, ele.student) }}>unenroll</Button></li>
+                            })}</> : <>
+                            <Typography variant="body"><b>No students enrolled yet.</b></Typography><br /></>}</Typography>
+                            <Button variant="contained" color='success' size="small" sx={{ m: 1, ml: 0 }} onClick={handleEnroll} >enroll students</Button></>}
                 </TabPanel>
                 <TabPanel value={value} index={2}>
                     <Redirect to={`/courses/${courseId}/lectures`} />
                 </TabPanel>
                 {enroll && <CourseEnroll course={course} enroll={enroll} handleEnroll={handleEnroll} />}
-            </Box>}
+            </Box> : <Grid container direction='row'>
+                <Grid item xs sx={{ display: "flex", justifyContent: "flex-start", pt: 1 }}><Typography variant='h6' color='error'>Course record not found</Typography></Grid>
+                <Grid item xs sx={{ display: "flex", justifyContent: "flex-end", pt: 1 }}><Link style={{ margin: '5px', marginTop: '5px', textDecoration: 'none' }} to={`/courses`} ><Tooltip title="All Courses" ><KeyboardDoubleArrowLeft color="primary" /></Tooltip></Link></Grid>
+            </Grid>}
         </>
     );
 }

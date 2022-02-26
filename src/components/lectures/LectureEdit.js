@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux"
 import { Typography } from "@mui/material"
 import { asyncUpdateLecture } from "../../actions/lecturesAction"
 import LectureForm from "./LectureForm"
+import Helmet from "react-helmet"
 
 const LectureEdit = (props) => {
     const { courseId, lecture, edit, handleEdit } = props
@@ -16,6 +17,9 @@ const LectureEdit = (props) => {
 
     return (
         <div style={{width:'625px', margin:'20px auto', padding:'10px', border: '1px solid rgba(0, 0, 0, 0.1)', borderRadius:'10px'}}>
+            <Helmet>
+                <title>E-Learning | Admin | Edit-Lecture</title>
+            </Helmet>
             {
                 Object.keys(lecture).length > 0 && <>
                     <Dialog open={edit} onClose={handleEdit} fullWidth={true}>

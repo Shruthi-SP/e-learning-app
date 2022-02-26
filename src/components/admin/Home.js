@@ -1,9 +1,13 @@
 import { Grid, Typography } from "@mui/material"
+import Helmet from "react-helmet"
 
 const Home = (props) => {
 
     return (
         <Grid container sx={{mt:3}} >
+            <Helmet>
+                <title>E-Learning | Home</title>
+            </Helmet>
             <Grid item xs={12} sm={5.75} ><img src='el.png' alt='e-learning' width='100%' /></Grid>
             <Grid item xs={12} sm={0.5}></Grid>
             <Grid item xs={12} sm={5.75} >

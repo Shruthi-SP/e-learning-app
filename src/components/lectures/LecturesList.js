@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { asyncGetCourse } from "../../actions/coursesAction";
 import { asyncAllLectures, asyncDeleteLecture } from "../../actions/lecturesAction"
 import LectureEdit from "./LectureEdit";
+import Helmet from "react-helmet";
 
 const LecturesList = (props) => {
     const courseId = props.match.params.id
@@ -55,6 +56,9 @@ const LecturesList = (props) => {
 
     return (
         <div>
+            <Helmet>
+                <title>E-Learning | Admin | All Lectures</title>
+            </Helmet>
             <Grid container direction="row" sx={{ mt: 1, mb: 1 }}>
                 <Grid item xs sx={{ display: "flex", justifyContent: "flex-start", pt: 1 }}>
                     <Typography variant="h5">{course.name} - Lectures</Typography>
@@ -88,7 +92,7 @@ const LecturesList = (props) => {
                 <Grid item sm={12} md={4}></Grid>
                 <Grid item sm={12} md={4}></Grid>
             </Grid> : <Grid>
-                <Typography variant="h6">No lectures yet</Typography>
+                <Typography variant="h6">No lectures yet. Add your first Lecture</Typography>
             </Grid>
             }
         </div>

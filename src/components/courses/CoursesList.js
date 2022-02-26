@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { asyncGetAllCourses } from '../../actions/coursesAction'
 import { asyncGetAllStudents } from '../../actions/studentsAction'
 import CourseCard from './CourseCard'
+import Helmet from 'react-helmet'
 
 const CoursesList = (props) => {
 
@@ -26,6 +27,9 @@ const CoursesList = (props) => {
 
     return (
         <div>
+            <Helmet>
+                <title>E-Learning | All Courses</title>
+            </Helmet>
             <Grid container direction="row" sx={{ mt: 1 }}>
                 <Grid item xs sx={{ display: "flex", justifyContent: "flex-start", pt: 1 }}>
                     {courses.length > 0 ? <Typography component="h1" variant='h5'>Courses - {courses.length} </Typography> : <Typography component="h1" variant="h5" >No Courses yet. Add your first Course!!</Typography>}

@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { asyncGetAllCourses, asyncGetMyCourses } from "../../actions/coursesAction"
+import Helmet from 'react-helmet'
 
 const StudentAccount = (props) => {
 
@@ -32,6 +33,9 @@ const StudentAccount = (props) => {
 
     return (
         <div>
+            <Helmet>
+                <title>E-Learning | Admin | Student Account</title>
+            </Helmet>
             {
                 Object.keys(student).length > 0 && <>
                     <h2>{student.name} Info</h2>

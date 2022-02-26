@@ -7,6 +7,7 @@ import { Radio, RadioGroup, FormControlLabel, FormLabel, Box, Typography, TextFi
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { asyncGetAllCourses } from "../actions/coursesAction"
+import Helmet from "react-helmet"
 
 const theme = createTheme();
 
@@ -19,7 +20,7 @@ const Login = (props) => {
     const dispatch = useDispatch()
 
     const redirectAdmin = () => {
-        props.history.push('/admin/account')
+        props.history.push('/admin/dashboard')
         dispatch(asyncGetAllStudents())
         dispatch(asyncGetAllCourses())
     }
@@ -33,6 +34,7 @@ const Login = (props) => {
 
     const redirectStudent = () => {
         props.history.push('/student/account')
+        dispatch(asyncGetAllCourses())
     }
 
     const runValidation = () => {
@@ -86,6 +88,9 @@ const Login = (props) => {
 
     return (
         <ThemeProvider theme={theme}>
+            <Helmet>
+                <title>E-Learning | Login</title>
+            </Helmet>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box
@@ -128,7 +133,7 @@ const Login = (props) => {
                             value={password}
                             onChange={handleChange}
                         />
-                        {formErr.password && <><span style={{ color: 'red' }}>{formErr.password}</span><br/></>}
+                        {formErr.password && <><span style={{ color: 'red' }}>{formErr.password}</span><br /></>}
                         <FormLabel >Login As</FormLabel>
                         <RadioGroup sx={{ ml: 3, direction: 'row' }}
                             name="loginAs"
@@ -148,12 +153,12 @@ const Login = (props) => {
                             Log In
                         </Button>
                         <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="/admin/register" variant="body2">
-                  New User? Sign up
-                </Link>
-              </Grid>
-            </Grid>
+                            <Grid item>
+                                <Link href="/admin/register" variant="body2">
+                                    New User? Sign up
+                                </Link>
+                            </Grid>
+                        </Grid>
                     </Box>
                 </Box>
             </Container>

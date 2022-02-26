@@ -4,6 +4,7 @@ import validator from 'validator'
 import { Typography, TextField, Button } from "@mui/material"
 import { asyncLoginStudent, asyncGetStudent } from "../../actions/studentsAction"
 import { setUser } from "../../actions/usersAction"
+import Helmet from "react-helmet"
 
 const StudentLogin = (props) => {
     
@@ -64,6 +65,9 @@ const StudentLogin = (props) => {
     }
 
     return <div style={{ width:'300px', height: '300px', margin:'20px auto', textAlign: 'center', border: '1px solid rgba(0, 0, 0, 0.1)', borderRadius:'10px'}}>
+        <Helmet>
+                <title>E-Learning | Student | Login</title>
+            </Helmet>
         <Typography variant="h5" sx={{ m:3 }}>Student Login</Typography>
         <form onSubmit={handleSubmit}>
 

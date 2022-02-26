@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { asyncGetAllCourses } from "../../actions/coursesAction"
 import { asyncGetAllStudents } from "../../actions/studentsAction"
 import ModalAdmin from "./ModalAdmin"
+import Helmet from "react-helmet"
 
 const Account = (props) => {
 
@@ -29,6 +30,9 @@ const Account = (props) => {
 
     return (
         <div>
+            <Helmet>
+                <title>E-Learning App|Admin|Account</title>
+            </Helmet>
             {Object.keys(user).length > 0 && <>
                 <p>Name: <b>{user.username}</b></p>
                 <p>Email: <b>{user.email}</b></p>

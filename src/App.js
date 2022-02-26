@@ -9,9 +9,9 @@ function App(props) {
       <Container>
         <Helmet>
           <title>E-Learning App</title>
-          <meta name="description" content="E-Learning app" />
+          {/* <meta name="description" content="eLearning app" /> */}
         </Helmet>
-        <Typography variant="h3" sx={{ mt: 3, mb: 3, textAlign: 'center' }}>Welcome to e-learning app</Typography>
+        {/* <Typography variant="h3" sx={{ mt: 3, mb: 3, textAlign: 'center' }}>Welcome to e-learning app</Typography> */}
         <Navbar />
       </Container>
     </div>

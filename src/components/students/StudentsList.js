@@ -22,6 +22,7 @@ import FirstPageIcon from '@mui/icons-material/FirstPage';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
+import Helmet from 'react-helmet'
 
 const StudentList = (props) => {
 
@@ -47,7 +48,7 @@ const StudentList = (props) => {
   const [search, setSearch] = useState('')
   const [tableData, setTableData] = useState(students)
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   useEffect(() => {
     if (allStudents.length > 0) {
@@ -141,12 +142,12 @@ const StudentList = (props) => {
     rowsPerPage: PropTypes.number.isRequired,
   };
 
-  function createData(id, name, view, edit, remove) {
-    return { id, name, view, edit, remove };
+  function createData(id, name, email, view, edit, remove) {
+    return { id, name, email, view, edit, remove };
   }
 
   const rows = tableData.map(ele => {
-    return createData(ele._id, ele.name, <Link style={{ color: 'green' }} to={`/admin/students/${ele._id}`}><RemoveRedEyeOutlined /></Link>, <IconButton variant="outlined" color="primary" size="small" onClick={(e) => { handleEdit(e, ele) }}><Edit /></IconButton>, <IconButton variant="outlined" color="error" size="small" onClick={(e) => { handleRemove(e, ele) }}><Delete /></IconButton>)
+    return createData(ele._id, ele.name, ele.email, <Link style={{ color: 'green' }} to={`/admin/students/${ele._id}`}><RemoveRedEyeOutlined /></Link>, <IconButton variant="outlined" color="primary" size="small" onClick={(e) => { handleEdit(e, ele) }}><Edit /></IconButton>, <IconButton variant="outlined" color="error" size="small" onClick={(e) => { handleRemove(e, ele) }}><Delete /></IconButton>)
   })
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -162,20 +163,23 @@ const StudentList = (props) => {
   const handleSearchChange = (e) => {
     const userInput = e.target.value
     setSearch(userInput)
-    const newList = students.filter(ele => ele.name.toLowerCase().includes(userInput))
+    const newList = students.filter(ele => ele.name.toLowerCase().includes(userInput) || ele.email.toLowerCase().includes(userInput))
     setTableData(newList)
   }
 
   return (
     <>
+      <Helmet>
+        <title>E-Learning | Admin | All-Students</title>
+      </Helmet>
       <Grid container direction="row" sx={{ mt: 1 }}>
         <Grid item xs sx={{ display: "flex", justifyContent: "flex-start", pt: 1 }}>
-          {students.length > 0 ? <Typography component="h1" variant='h5'>Students - {students.length} </Typography> : <Typography component="h1" variant="h5" >No Students. Add Students!!</Typography>}
+          {students.length > 0 ? <Typography component="h1" variant='h5'>Students - {students.length} </Typography> : <Typography component="h1" variant="h5" >No Students. Add your first Student!!</Typography>}
         </Grid>
 
         <Grid item xs sx={{ display: "flex", justifyContent: "flex-end" }}>
-          <Link style={{ margin: '5px', fontSize: '23px', paddingTop: '3px' }} to={`/admin/create-student`}>Add Student</Link>
-          <Button onClick={()=>{props.history.push(`/admin/create-student`)}}><Tooltip title="Add Course"><AddTaskRounded color="success" /></Tooltip></Button>
+          {/* <Link style={{ margin: '5px', fontSize: '23px', paddingTop: '3px' }} to={`/admin/create-student`}>Add Student</Link> */}
+          <Button onClick={() => { props.history.push(`/admin/create-student`) }}><Tooltip title="Add Student"><AddTaskRounded color="success" /></Tooltip></Button>
         </Grid>
       </Grid>
       {students.length > 0 && <>
@@ -200,10 +204,11 @@ const StudentList = (props) => {
           <Table sx={{ mixWidth: 500 }} size='small' aria-label="custom pagination table">
             <TableHead>
               <TableRow >
-                <TableCell style={{ width: '40%', fontSize: '16px' }} ><b>Student Name</b></TableCell>
-                <TableCell style={{ width: '20%', fontSize: '16px' }} ><b>View</b></TableCell>
-                <TableCell style={{ width: '20%', fontSize: '16px' }} ><b>Update</b></TableCell>
-                <TableCell style={{ width: '20%', fontSize: '16px' }} ><b>Delete</b></TableCell>
+                <TableCell style={{ width: '20%', fontSize: '16px' }} ><b>Student Name</b></TableCell>
+                <TableCell style={{ width: '23%', fontSize: '16px' }} ><b>Email</b></TableCell>
+                <TableCell style={{ width: '15%', fontSize: '16px' }} ><b>View</b></TableCell>
+                <TableCell style={{ width: '15%', fontSize: '16px' }} ><b>Update</b></TableCell>
+                <TableCell style={{ width: '15%', fontSize: '16px' }} ><b>Delete</b></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -213,6 +218,7 @@ const StudentList = (props) => {
               ).map((row) => (
                 <TableRow key={row.id}>
                   <TableCell style={{ fontSize: '16px' }} >{row.name}</TableCell>
+                  <TableCell style={{ fontSize: '16px' }} >{row.email}</TableCell>
                   <TableCell >{row.view}</TableCell>
                   <TableCell >{row.edit}</TableCell>
                   <TableCell >{row.remove}</TableCell>

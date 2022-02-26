@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { asyncGetAllCourses, asyncGetMyCourses } from '../../actions/coursesAction'
 import CourseCard from './CourseCard'
+import Helmet from 'react-helmet'
 
 const MyCourses = (props) => {
 
@@ -35,6 +36,9 @@ const MyCourses = (props) => {
 
     return (
         <div>
+            <Helmet>
+                <title>E-Learning | My-Courses</title>
+            </Helmet>
             {
                 myCourses.length > 0 && <Grid container>
                     <Grid container direction="row" sx={{ mt: 1, mb: 1 }}>

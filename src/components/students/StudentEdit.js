@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux"
 import { asyncGetStudent, asyncUpdateStudent } from "../../actions/studentsAction"
 import StudentRegisterForm from "./StudentRegisterForm"
 import { Typography } from "@mui/material"
+import Helmet from 'react-helmet'
 
 const StudentEdit = (props) => {
     const { id, edit, handleEdit } = props
@@ -25,6 +26,9 @@ const StudentEdit = (props) => {
 
     return (
         <div>
+            <Helmet>
+                <title>E-Learning | Admin | Edit-Student</title>
+            </Helmet>
             {
                 Object.keys(student).length > 0 && <>
                     <Dialog open={edit} onClose={handleEdit}>

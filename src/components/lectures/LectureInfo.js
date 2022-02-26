@@ -9,6 +9,7 @@ import { AddCommentOutlined, KeyboardDoubleArrowLeft, } from "@mui/icons-materia
 import { asyncGetAllStudents } from "../../actions/studentsAction"
 import LectureMarkAsComplete from "./LectureMarkAsComplete"
 import { asyncGetCourse } from "../../actions/coursesAction"
+import Helmet from "react-helmet"
 
 const LectureInfo = (props) => {
     const lectureId = props.match.params.id
@@ -89,6 +90,9 @@ const LectureInfo = (props) => {
 
     return (
         <div>
+            <Helmet>
+                <title>E-Learning | Admin | Lecture</title>
+            </Helmet>
             {
                 Object.keys(lecture).length > 0 && <>
 

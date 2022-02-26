@@ -27,6 +27,7 @@ import { asyncRegisterUser } from '../../actions/usersAction'
 import RegisterForm from './RegisterForm'
 import { Box, Typography, Container, Avatar, CssBaseline } from "@mui/material"
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Helmet from 'react-helmet';
 
 const theme = createTheme();
 
@@ -43,6 +44,9 @@ const AddAdmin = (props) => {
 
     return (
         <ThemeProvider theme={theme}>
+            <Helmet>
+                <title>E-Learning| Admin | Register</title>
+            </Helmet>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
                 <Box

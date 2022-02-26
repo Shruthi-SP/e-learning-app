@@ -26,11 +26,12 @@ import StudentShowPage from "./students/StudentShowPage"
 import LectureInfo from "./lectures/LectureInfo"
 import Login from "./Login"
 import CourseShowPage from "./courses/CourseShowPage"
+import AdminDashboard from "./admin/AdminDashboard"
 
 const Navbar = (props) => {
     const [userLoggedIn, setUserLoggedIn] = useState(false)
     const [admin, setAdmin] = useState(false)
-    const [login, setLogin] = useState('')
+    //const [login, setLogin] = useState('')
 
     const dispatch = useDispatch()
     useEffect(() => {
@@ -39,12 +40,12 @@ const Navbar = (props) => {
             if(role==='Student'){
                 const id = jwtDecode(localStorage.getItem('token'))._id
                 dispatch(asyncGetStudent(id))
-                setLogin('Student')
+                //setLogin('Student')
             }
             else if(role==='Admin'){
                 dispatch(asyncGetUser())
                 dispatch(asyncGetAllStudents())
-                setLogin('Admin')
+                //setLogin('Admin')
             }
         }
     }, [])
@@ -62,11 +63,11 @@ const Navbar = (props) => {
         }
     }, [user])
 
-    const handleLogin = (e) => {
-        const value = e.target.value
-        setLogin(value)
-        value === 'Admin' ? props.history.push('/admin/login') : value === 'Student' ? props.history.push('/student/login') : props.history.push('/')
-    }
+    // const handleLogin = (e) => {
+    //     const value = e.target.value
+    //     setLogin(value)
+    //     value === 'Admin' ? props.history.push('/admin/login') : value === 'Student' ? props.history.push('/student/login') : props.history.push('/')
+    // }
 
     const handleLogout = () => {
         localStorage.clear()
@@ -82,7 +83,7 @@ const Navbar = (props) => {
         })
         setUserLoggedIn(false)
         setAdmin(false)
-        setLogin('')
+        //setLogin('')
     }
 
     return (
@@ -97,6 +98,8 @@ const Navbar = (props) => {
                                     <Link style={{ margin: '10px', fontSize: '18px', color: 'white' }} to='/admin/account'>Account</Link>
                                     
                                     <Link style={{ margin: '10px', fontSize: '18px', color: 'white' }} to='/admin/students'>Students</Link>
+
+                                    <Link style={{ margin: '10px', fontSize: '18px', color: 'white' }} to='/admin/dashboard'>Dashboard</Link>
                                     
                                 </> : <>
                                 
@@ -163,6 +166,7 @@ const Navbar = (props) => {
             <PrivateRoute path='/mycourses/:id/lectures' component={LecturesList} />
             <PrivateRoute path='/mycourses/:courseId/lectures/:id' component={LectureInfo} />
             <PrivateRoute path='/courses-create' component={AddCourse} />
+            <PrivateRoute path='/admin/dashboard' component={AdminDashboard} />
         </>
     )
 }
